@@ -1,0 +1,2 @@
+# konkon
+KonKon - Computer Store

@@ -1,4 +1,4 @@
-# konkon-client
+# KonKon Client
 
 > KonKon - Computer Store
 

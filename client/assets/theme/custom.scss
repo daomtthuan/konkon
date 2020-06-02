@@ -1,0 +1,119 @@
+@import 'bootstrap/scss/_functions.scss';
+@import 'bootstrap/scss/_variables.scss';
+@import 'bootstrap/scss/mixins/_breakpoints.scss';
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-weight: bold;
+}
+
+.cursor-default {
+  cursor: default !important;
+}
+
+.background {
+  min-height: 100vh !important;
+  @extend .cursor-default;
+  background-image: linear-gradient(rgba(247, 249, 254, 0.8), rgba(247, 249, 254, 0.5)), url('/images/background/xl.jpg');
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+
+  @include media-breakpoint-down(xs) {
+    background-image: linear-gradient(rgba(247, 249, 254, 0.8), rgba(247, 249, 254, 0.5)), url('/images/background/xs.jpg');
+  }
+
+  @include media-breakpoint-down(sm) {
+    background-image: linear-gradient(rgba(247, 249, 254, 0.8), rgba(247, 249, 254, 0.5)), url('/images/background/sm.jpg');
+  }
+
+  @include media-breakpoint-down(md) {
+    background-image: linear-gradient(rgba(247, 249, 254, 0.8), rgba(247, 249, 254, 0.5)), url('/images/background/md.jpg');
+  }
+
+  @include media-breakpoint-down(lg) {
+    background-image: linear-gradient(rgba(247, 249, 254, 0.8), rgba(247, 249, 254, 0.5)), url('/images/background/lg.jpg');
+  }
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.2s ease-out !important;
+}
+
+.page-enter,
+.page-leave-active {
+  opacity: 0 !important;
+  transform-origin: 50% 50% !important;
+}
+
+.bg-black {
+  background-color: rgba(8, 8, 8, 0.9) !important;
+}
+
+.font-logo {
+  font-family: 'Righteous', $font-family-sans-serif, cursive !important;
+}
+
+.logo {
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+}
+
+.logo-32 {
+  @extend .logo;
+  background-image: url('/images/logo/32.png') !important;
+  width: 32px !important;
+  height: 32px !important;
+}
+
+.logo-64 {
+  @extend .logo;
+  background-image: url('/images/logo/64.png') !important;
+  width: 64px !important;
+  height: 64px !important;
+}
+
+.logo-128 {
+  @extend .logo;
+  background-image: url('/images/logo/128.png') !important;
+  width: 128px !important;
+  height: 128px !important;
+}
+
+.logo-256 {
+  @extend .logo;
+  background-image: url('/images/logo/256.png') !important;
+  width: 128px !important;
+  height: 128px !important;
+}
+
+.logo-512 {
+  @extend .logo;
+  background-image: url('/images/logo/512.png') !important;
+  width: 128px !important;
+  height: 128px !important;
+}
+
+.logo-1024 {
+  @extend .logo;
+  background-image: url('/images/logo/1024.png') !important;
+  width: 128px !important;
+  height: 128px !important;
+}
+
+.w-min-100 {
+  min-width: 100%;
+}

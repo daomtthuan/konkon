@@ -18,20 +18,20 @@ class UserController {
   }
 
   public function auth(string $account, string $password) {
-    $user = $this->getByAccount($account);
+    $user = $this->getByAccount($account, -1);
     if (!is_null($user)) {
       return $user ? (password_verify($password, $user['password']) ? (string)$user['id'] : false) : false;
     }
     return null;
   }
 
-  public function getById(string $id) {
-    $query = Provider::getInstance()->getBindQuery(User::class, ['id' => $id]);
+  public function getById(string $id, int $status, int $scopeStatus) {
+    $query = Provider::getInstance()->getBindQuery(User::class, ['id' => $id, 'status' => $status]);
     if (!is_null($query)) {
-      $datas = Provider::getInstance()->executeQuery('call getUserById(?)', $query['type'], ...$query['vars']);
+      $datas = Provider::getInstance()->executeQuery('call getUserById(?, ?)', $query['type'], ...$query['vars']);
       if (count($datas) == 1) {
         $user   = Provider::getInstance()->modelToArray(new User($datas[0]));
-        $scopes = UserScopeController::getInstance()->getScope($id);
+        $scopes = UserScopeController::getInstance()->getScope($id, $scopeStatus);
         if (!is_null($scopes)) {
           $user['scope'] = $scopes;
           return $user;
@@ -41,10 +41,10 @@ class UserController {
     return null;
   }
 
-  public function getByAccount(string $account) {
-    $query = Provider::getInstance()->getBindQuery(User::class, ['account' => $account]);
+  public function getByAccount(string $account, int $status) {
+    $query = Provider::getInstance()->getBindQuery(User::class, ['account' => $account, 'status' => $status]);
     if (!is_null($query)) {
-      $datas = Provider::getInstance()->executeQuery('call getUserByAccount(?)', $query['type'], ...$query['vars']);
+      $datas = Provider::getInstance()->executeQuery('call getUserByAccount(?, ?)', $query['type'], ...$query['vars']);
       if (count($datas) == 1) {
         return Provider::getInstance()->modelToArray(new User($datas[0]));
       }

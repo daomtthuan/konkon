@@ -21,6 +21,7 @@
 
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
+  import App from '~/plugins/app';
   import Plugins from '~/plugins';
 
   @Component({
@@ -28,19 +29,9 @@
   })
   export default class LayoutDefault extends Vue {
     public async fetch() {
-      this.$store.commit('app/setCategoryGroups', (await this.$axios.get(`/api/category-group`, { params: { status: 1 } })).data);
-      for (const categoryGroup of this.$store.state.app.categoryGroups) {
-        this.$store.commit('app/setCategory', {
-          categoryGroup,
-          category: (await this.$axios.get(`/api/category`, { params: { categoryGroupId: categoryGroup.id, status: 1 } })).data,
-        });
-      }
-
-      if (localStorage.session && localStorage.token) {
-        Plugins.setCookie('session', localStorage.session);
-        this.$auth.setToken('local', localStorage.token);
-        await this.$auth.fetchUser();
-      }
+      await App.fetchCategory(this);
+      await App.fetchNews(this);
+      await App.fetchUser(this);
     }
   }
 </script>

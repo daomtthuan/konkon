@@ -38,12 +38,12 @@
     };
 
     public changeInformation() {
-      this.$store.commit('form/account/reverseChangeInformation');
+      this.$store.commit('account/reverseChangeInformation');
       this.textButton.changeInformation = this.isChangeInformation ? 'Cancel change information' : 'Change information';
     }
 
     public changePassword() {
-      this.$store.commit('form/account/reverseChangePassword');
+      this.$store.commit('account/reverseChangePassword');
       this.textButton.changePassword = this.isChangePassword ? 'Cancel change password' : 'Change password';
     }
 
@@ -52,11 +52,11 @@
     }
 
     public get isChangeInformation() {
-      return this.$store.state.form.account.change.information;
+      return this.$store.state.account.change.information;
     }
 
     public get isChangePassword() {
-      return this.$store.state.form.account.change.password;
+      return this.$store.state.account.change.password;
     }
   }
 </script>

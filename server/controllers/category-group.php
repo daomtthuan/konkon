@@ -16,11 +16,11 @@ class CategoryGroupController {
     return self::$__instance;
   }
 
-  public function getByStatus(int $status) {
+  public function get(int $status) {
     $query = Provider::getInstance()->getBindQuery(CategoryGroup::class, ['status' => $status]);
     if (!is_null($query)) {
       $categoryGroups = [];
-      foreach (Provider::getInstance()->executeQuery('call getCategoryGroupByStatus(?)', $query['type'], ...$query['vars']) as $data) {
+      foreach (Provider::getInstance()->executeQuery('call getCategoryGroup(?)', $query['type'], ...$query['vars']) as $data) {
         $categoryGroups[] = Provider::getInstance()->modelToArray(new CategoryGroup($data));
       }
       return $categoryGroups;

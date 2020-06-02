@@ -3,7 +3,7 @@ import { Module, Mutation, VuexModule } from 'vuex-module-decorators';
 @Module({
   stateFactory: true,
 })
-export default class AccountStore extends VuexModule {
+export default class AccountModule extends VuexModule {
   private change = {
     information: false,
     password: false,

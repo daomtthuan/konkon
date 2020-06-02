@@ -10,7 +10,7 @@ new class extends Api {
       if ($request->isSetParam('status')) {
         switch ($request->getParam('status')) {
         case 1:
-          $categoryGroups = CategoryGroupController::getInstance()->getByStatus(1);
+          $categoryGroups = CategoryGroupController::getInstance()->get(1);
           if (!is_null($categoryGroups)) {
             $response->sendJson(json_encode($categoryGroups));
           } else {

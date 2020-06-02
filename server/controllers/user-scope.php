@@ -17,11 +17,11 @@ class UserScopeController {
     return self::$__instance;
   }
 
-  public function getScope(string $userId) {
-    $query = Provider::getInstance()->getBindQuery(User::class, ['id' => $userId]);
+  public function getScope(string $userId, int $status) {
+    $query = Provider::getInstance()->getBindQuery(User::class, ['id' => $userId, 'status' => $status]);
     if (!is_null($query)) {
       $scopes = [];
-      foreach (Provider::getInstance()->executeQuery('call getUserScopeByUserId(?)', $query['type'], ...$query['vars']) as $data) {
+      foreach (Provider::getInstance()->executeQuery('call getUserScopeByUserId(?, ?)', $query['type'], ...$query['vars']) as $data) {
         $scopes[] = (Provider::getInstance()->modelToArray(new Scope($data)))['name'];
       }
       return $scopes;

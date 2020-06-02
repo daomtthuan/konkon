@@ -33,7 +33,7 @@
               no-caret
               right
             >
-              <template v-slot:button-content><font-awesome-icon class="mr-1" :icon="['fas', 'user']" /> Account</template>
+              <template v-slot:button-content><b-avatar variant="primary" size="sm"/></template>
               <b-dropdown-item to="/account" :active="$route.path == '/account'">Dashboard</b-dropdown-item>
               <b-dropdown-item @click="logout">Logout</b-dropdown-item>
             </b-nav-item-dropdown>

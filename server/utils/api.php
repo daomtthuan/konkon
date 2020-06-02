@@ -80,8 +80,13 @@ class Request {
   public function getUser() {
     if ($this->isSetCookie('auth_token_local', 'session')) {
       Session::getInstance()->start($this->getCookie('session'));
-      if (password_verify($token = Session::getInstance()->get("token"), $this->getCookie('auth_token_local'))) {
-        return UserController::getInstance()->getById($token);
+      if (Session::getInstance()->isSet('token')) {
+        if (password_verify($token = Session::getInstance()->get('token'), $this->getCookie('auth_token_local'))) {
+          $user = UserController::getInstance()->getById($token, -1, 1);
+          if ($user['status'] != 0) {
+            return $user;
+          }
+        }
       }
     }
     return null;

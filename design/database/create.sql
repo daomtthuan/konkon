@@ -65,31 +65,73 @@ create table table_product (
 	product_brand varchar(32) not null references table_brand(brand_id)
 );
 
+-- ------------------------------
+
 delimiter //
 create function createId() returns varchar(32) begin
   return replace(uuid(),'-','');
 end //
 
-create procedure getUserScopeByUserId(_id varchar(32)) begin
+create procedure getUserScopeByUserId(_id varchar(32), _status int) begin
 	select 
     table_scope.*
   from table_userScope
 		join table_user on user_id = userScope_user
     join table_scope on scope_id = userScope_scope
-	where user_id = _id;
+	where
+		user_id = _id and
+    case when _status = -1 then true else scope_status = _status end;
 end //
 
-create procedure getUserById(_id varchar(32)) begin
+create procedure getUserById(_id varchar(32), _status int) begin
 	select *
   from table_user
-	where user_id = _id;
+	where
+		user_id = _id and
+    case when _status = -1 then true else user_status = _status end;
 end //
 
-create procedure getUserByAccount(_account varchar(100)) begin
+create procedure getUserByAccount(_account varchar(100), _status int) begin
 	select *
   from table_user
-	where user_account = _account;
+	where
+		user_account = _account and
+    case when _status = -1 then true else user_status = _status end;
 end //
+
+create procedure getCategoryGroup(_status int) begin
+	select *
+  from table_categoryGroup
+	where
+    case when _status = -1 then true else categoryGroup_status = _status end;
+end //
+
+create procedure getCategoryByCategoryGroupId(_id int, _status int) begin
+	select *
+  from table_category
+	where
+		category_categoryGroup = _id and
+    case when _status = -1 then true else category_status = _status end;
+end //
+
+create procedure getNewsByPage(_page int, _status int) begin
+	declare _from int default (_page * 10 - 10);
+	select *
+  from table_news
+  where
+    case when _status = -1 then true else news_status = _status end
+	limit _from, 10;
+end //
+
+create procedure getNewsByName(_name varchar(100), _status int) begin
+	select *
+  from table_news
+  where
+		news_name = _name and
+    case when _status = -1 then true else news_status = _status end;
+end //
+
+-- ------------------------------
 
 create procedure addUser(_account varchar(100), _password varchar(100), _email varchar(100), _name varchar(100), _gender bit, _birthday date, _phone varchar(15), _address varchar(200)) begin
 	insert into table_user values(
@@ -105,6 +147,8 @@ create procedure addUser(_account varchar(100), _password varchar(100), _email v
 		_address -- address
   );
 end //
+
+-- ------------------------------
 
 create procedure setUser(_id varchar(32), _email varchar(100), _name varchar(100), _gender bit, _birthday date, _phone varchar(15), _address varchar(200)) begin
 	update table_user set 
@@ -128,19 +172,9 @@ create procedure setStatusUser(_id varchar(32), _status int) begin
 		user_status = _status
 	where user_id = _id;
 end //
-
-create procedure getCategoryGroupByStatus(_status int) begin
-	select *
-  from table_categoryGroup
-	where categoryGroup_status = _status;
-end //
-
-create procedure getCategoryByCategoryGroupId(_id int) begin
-	select *
-  from table_category
-	where category_categoryGroup = _id;
-end //
 delimiter ;
+
+-- ------------------------------
 
 insert into table_user values(
 	'7954040aa22311eaa97b00ffe7dc46aa', -- id
@@ -158,7 +192,7 @@ insert into table_user values(
 insert into table_user values(
 	'486e8b6fa21811eaa97b00ffe7dc46aa', -- id
   'employee', -- account
-  '$2y$10$wiL.EoH5/z0ZErb1Yd0/NOaVG8.lOaa8B6HYi8atZhUuFxV25pEMC', -- password
+  '$2y$10$M7teb7LXXGkvZKrQS4tJQOqGG6tVN089tj3WDF.oas8fQgvCrrmDO', -- password
   'employee.konkon.computerstore@gmail.com', -- email
   1, -- status
   'Donna Suhr', -- name
@@ -171,7 +205,7 @@ insert into table_user values(
 insert into table_user values(
 	'552c6852a21811eaa97b00ffe7dc46aa', -- id
   'customer', -- account
-  '$2y$10$wiL.EoH5/z0ZErb1Yd0/NOaVG8.lOaa8B6HYi8atZhUuFxV25pEMC', -- password
+  '$2y$10$M7teb7LXXGkvZKrQS4tJQOqGG6tVN089tj3WDF.oas8fQgvCrrmDO', -- password
   'customer.konkon.computerstore@gmail.com', -- email
   2, -- status
   'Will Dunn', -- name

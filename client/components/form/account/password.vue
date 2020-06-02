@@ -89,7 +89,7 @@
         this.busy = true;
         try {
           await this.$axios.put('/api/user', this.user, { params: { mode: 'password' } });
-          this.$store.commit('form/account/reverseChangePassword');
+          this.$store.commit('account/reverseChangePassword');
         } catch (error) {
           this.$bvToast.toast('Change password failed', { title: 'Error', variant: 'danger' });
           this.busy = false;

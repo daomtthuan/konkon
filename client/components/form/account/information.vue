@@ -218,7 +218,7 @@
           await this.$axios.put('/api/user', this.user, { params: { mode: 'information' } });
           await this.$auth.fetchUser();
           this.loadData();
-          this.$store.commit('form/account/reverseChangeInformation');
+          this.$store.commit('account/reverseChangeInformation');
         } catch {
           this.$bvToast.toast('Change information failed', { title: 'Error', variant: 'danger' });
           this.busy = false;
@@ -229,7 +229,7 @@
     }
 
     public get isChange() {
-      return this.$store.state.form.account.change.information;
+      return this.$store.state.account.change.information;
     }
 
     public get isValid() {

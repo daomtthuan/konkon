@@ -1,33 +1,28 @@
 <template>
-  <loading variant="secondary" class="my-3" v-if="$fetchState.pending" />
-  <div v-else-if="$fetchState.error" class="text-danger">Loading failed</div>
-  <div class="p-5" v-else>
-    <h2>News and Sale</h2>
-    <hr />
-
+  <div>
     <b-card
-      v-for="(element, index) in news"
-      :key="index"
-      :title="element.title"
-      :img-src="element.image"
+      v-for="post in $store.state.news.posts"
+      :key="post.id"
+      :title="post.title"
+      :img-src="`/assets/news/images/${post.name}.jpg`"
       title-tag="h5"
-      :sub-title="new Date(element.date).toDateString()"
+      :sub-title="new Date(post.date).toDateString()"
       sub-title-tag="small"
       class="my-3 border shadow-sm"
     >
       <b-card-text>
-        <small>Posted by {{ element.auth }}</small>
+        <small>Posted by {{ post.auth }}</small>
       </b-card-text>
       <b-card-text>
         <hr />
-        {{ element.intro }}
+        {{ post.intro }}
       </b-card-text>
       <b-card-text class="text-center">
-        <b-button variant="primary" size="sm" :to="element.url">Details</b-button>
+        <b-button variant="primary" size="sm" :to="`/news/${post.name}`" @click="select(post)">Details</b-button>
       </b-card-text>
     </b-card>
 
-    <infinite-loading v-if="news.length" spinner="spiral" @infinite="loadNews">
+    <infinite-loading v-if="$store.state.news.posts.length" spinner="spiral" @infinite="loadNews">
       <template slot="spinner">
         <loading variant="secondary" class="mt-3" />
       </template>
@@ -49,42 +44,24 @@
     components: { InfiniteLoading },
   })
   export default class PageNews extends Vue {
-    // private news = [];
-    // private page = 1;
+    public loadNews(state: StateChanger) {
+      (async () => {
+        try {
+          const news = (await this.$axios.get('/api/news', { params: { status: 1, page: this.$store.state.news.page } })).data;
+          if (news.length > 1) {
+            this.$store.commit('news/push', news);
+            state.loaded();
+          } else {
+            state.complete();
+          }
+        } catch {
+          state.error();
+        }
+      })();
+    }
 
-    // private async getNews(page: number) {
-    //   try {
-    //     return (await this.$axios.get('/api/news', { params: { status: 1, page } })).data;
-    //   } catch (error) {
-    //     this.$bvToast.toast('Load news failed', { title: 'Error', variant: 'danger' });
-    //     throw error;
-    //   }
-    // }
-
-    // public loadNews(state: StateChanger) {
-    //   (async () => {
-    //     try {
-    //       const news = await this.getNews(++this.page);
-    //       if (news.length > 1) {
-    //         for (const item of news) {
-    //           this.news.push(item);
-    //         }
-    //         state.loaded();
-    //       } else {
-    //         state.complete();
-    //       }
-    //     } catch {
-    //       state.error();
-    //     }
-    //   })();
-    // }
-
-    // public async fetch() {
-    //   this.news = await this.getNews(1);
-    // }
-
-    // public getEven(index: number) {
-    //   return 2 * index - 2;
-    // }
+    public select(post: any) {
+      this.$store.commit('news/select', post);
+    }
   }
 </script>

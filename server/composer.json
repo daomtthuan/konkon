@@ -1,0 +1,13 @@
+{
+    "name": "daomtthuan/konkon-server",
+    "description": "KonKon - Computer Store",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Daomtthuan",
+            "email": "dao.mt.thuan@gmail.com"
+        }
+    ],
+    "require": {}
+}

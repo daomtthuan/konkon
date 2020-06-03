@@ -26,7 +26,7 @@
     fetchOnServer: false,
     scrollToTop: true,
   })
-  export default class PageIndex extends Vue {
+  export default class PageDashboard extends Vue {
     public async fetch() {
       try {
         await App.fetchCategory(this);

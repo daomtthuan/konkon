@@ -30,7 +30,9 @@
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
 
-  @Component
+  @Component({
+    scrollToTop: true,
+  })
   export default class PageUserAccount extends Vue {
     private textButton = {
       changeInformation: 'Change information',

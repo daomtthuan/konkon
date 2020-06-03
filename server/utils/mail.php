@@ -20,7 +20,7 @@ class Mail {
     $this->__mail->Password   = getenv('mail_password');
     $this->__mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
     $this->__mail->Port       = 465;
-    $this->__mail->setFrom(getenv('mail_username'), 'GPC Shop');
+    $this->__mail->setFrom(getenv('mail_username'), 'KonKon - Computer Store');
 
     $this->__mail->Subject = 'Here is the subject';
     $this->__mail->Body    = 'This is the HTML message body <b>in bold!</b>';

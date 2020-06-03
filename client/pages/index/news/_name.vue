@@ -28,9 +28,11 @@
           this.$store.commit('news/select', (await this.$axios.get('/api/news', { params: { name: this.$route.params.name, status: 1 } })).data);
         }
         this.content = (await this.$axios.get(`/assets/news/contents/${this.$store.state.news.selected.name}.html`)).data;
-      } catch (error) {
-        this.$nuxt.error({ statusCode: 404, message: 'This page could not be found' });
-        return;
+      } catch {
+        this.$nuxt.error({
+          statusCode: 404,
+          message: 'This page could not be found',
+        });
       }
     }
   }

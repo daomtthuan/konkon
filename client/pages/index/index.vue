@@ -1,10 +1,12 @@
 <template>
-  <nuxt />
+  <div></div>
 </template>
 
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
 
-  @Component
-  export default class LayoutDefault extends Vue {}
+  @Component({
+    scrollToTop: true,
+  })
+  export default class PageHome extends Vue {}
 </script>

@@ -19,7 +19,7 @@
         </b-col>
         <b-col md="6" class="py-2">
           <h5>Main brand location</h5>
-          <div class="border border-primary mt-2 shadow-sm">
+          <div class="border border-primary mt-2 shadow">
             <b-embed
               type="iframe"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1010.9804522913864!2d105.78001343543148!3d10.033419783479948!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x27e73181695218ab!2zVHJ1bmcgdMOibSBDw7RuZyBuZ2jhu4cgUGjhuqduIG3hu4FtIMSQ4bqhaSBo4buNYyBD4bqnbiBUaMah!5e0!3m2!1svi!2s!4v1590692945371!5m2!1svi!2s"

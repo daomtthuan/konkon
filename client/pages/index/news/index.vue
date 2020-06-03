@@ -22,7 +22,7 @@
       </b-card-text>
     </b-card>
 
-    <infinite-loading v-if="$store.state.news.posts.length" spinner="spiral" @infinite="loadNews">
+    <infinite-loading spinner="spiral" @infinite="loadNews">
       <template slot="spinner">
         <loading variant="secondary" class="mt-3" />
       </template>

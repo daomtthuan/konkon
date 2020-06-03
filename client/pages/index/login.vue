@@ -16,6 +16,8 @@
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
 
-  @Component
+  @Component({
+    scrollToTop: true,
+  })
   export default class PageLogin extends Vue {}
 </script>

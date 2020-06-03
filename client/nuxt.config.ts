@@ -27,6 +27,7 @@ export default {
     failedColor: '#e74c3c',
     throttle: 0,
     continuous: true,
+    height: '0.25rem',
   },
   css: ['~/assets/fonts', '~/assets/theme'],
   modules: ['@nuxt/components', '@nuxtjs/proxy', 'bootstrap-vue/nuxt', '@nuxtjs/axios', '@nuxtjs/dotenv', '@nuxtjs/auth', 'nuxt-fontawesome'],

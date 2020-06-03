@@ -28,7 +28,6 @@ h6,
   background-position: bottom;
   background-repeat: no-repeat;
   background-size: cover;
-  min-height: 100vh;
 
   @include media-breakpoint-down(xs) {
     background-image: linear-gradient(rgba(247, 249, 254, 0.8), rgba(247, 249, 254, 0.5)), url('/images/background/xs.jpg');
@@ -116,4 +115,15 @@ h6,
 
 .w-min-100 {
   min-width: 100%;
+}
+
+.vh-min-100 {
+  min-height: 100vh;
+}
+
+.fixed-left {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
 }

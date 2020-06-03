@@ -22,4 +22,8 @@ export default {
       await vue.$auth.fetchUser();
     }
   },
+
+  ready(vue: Vue) {
+    vue.$store.commit('app/ready');
+  },
 };

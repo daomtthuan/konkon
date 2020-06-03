@@ -83,7 +83,9 @@ class Provider {
   public function modelToArray($model) {
     $result = [];
     foreach ($model::$keys as $key => $value) {
-      $result[$key] = $model->getData($value['name']);
+      if ($model->isSetData($value['name'])) {
+        $result[$key] = $model->getData($value['name']);
+      }
     }
     return $result;
   }

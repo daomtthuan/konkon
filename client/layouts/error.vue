@@ -5,7 +5,7 @@
       <div class="py-5">
         <h4 class="text-danger">Error {{ error.statusCode }}</h4>
         <h6 class="text-muted">{{ error.message }}</h6>
-        <nuxt-link to="/">Go back home</nuxt-link>
+        <b-link href="/">Go back home</b-link>
       </div>
     </b-container>
   </main>

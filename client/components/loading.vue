@@ -1,5 +1,5 @@
 <template>
-  <div id="loading" class="mx-auto text-center">
+  <div class="mx-auto text-center">
     <b-spinner class="mr-1 mb-1" :variant="variant" small></b-spinner>
     <strong :class="`text-${variant}`" class="mt-1">Loading data...</strong>
   </div>

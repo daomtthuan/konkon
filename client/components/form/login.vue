@@ -1,15 +1,14 @@
 <template>
-  <b-form id="form-login" @submit="submit">
-    <b-form-group id="form-login-input-group-account" label="Account:" label-for="form-login-input-account" :state="valid.account.state">
+  <b-form @submit="submit">
+    <b-form-group label="Account:" label-for="form-login-input-account" :state="valid.account.state">
       <b-form-input id="form-login-input-account" v-model="user.account" autocomplete="username" :state="valid.account.state" />
       <b-form-invalid-feedback :state="valid.account.state">{{ valid.account.feedback }}</b-form-invalid-feedback>
     </b-form-group>
-    <b-form-group id="form-login-input-group-password" label="Password:" label-for="form-login-input-password" :state="valid.password.state">
+    <b-form-group label="Password:" label-for="form-login-input-password" :state="valid.password.state">
       <b-form-input id="form-login-input-password" v-model="user.password" type="password" autocomplete="current-password" :state="valid.password.state" />
       <b-form-invalid-feedback :state="valid.password.state">{{ valid.password.feedback }}</b-form-invalid-feedback>
     </b-form-group>
-
-    <b-form-group id="form-login-input-group-remember">
+    <b-form-group>
       <b-form-checkbox id="form-login-input-remember" v-model="remember" :value="true" :unchecked-value="false">Remember account</b-form-checkbox>
     </b-form-group>
     <div class="text-center">

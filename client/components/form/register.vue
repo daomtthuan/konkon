@@ -1,14 +1,14 @@
 <template>
-  <b-form id="form-register" @submit="submit">
-    <b-form-group id="form-register-input-group-account" label="Account:" label-for="form-register-input-account">
+  <b-form @submit="submit">
+    <b-form-group label="Account:" label-for="form-register-input-account">
       <b-form-input id="form-register-input-account" v-model="user.account" :state="valid.account.state" autocomplete="username" />
       <b-form-invalid-feedback :state="valid.account.state">{{ valid.account.feedback }}</b-form-invalid-feedback>
     </b-form-group>
-    <b-form-group id="form-register-input-group-password" label="Password:" label-for="form-register-input-password">
+    <b-form-group label="Password:" label-for="form-register-input-password">
       <b-form-input id="form-register-input-password" v-model="user.password" type="password" :state="valid.password.state" autocomplete="new-password" />
       <b-form-invalid-feedback :state="valid.password.state">{{ valid.password.feedback }}</b-form-invalid-feedback>
     </b-form-group>
-    <b-form-group id="form-register-input-group-repassword" label="Re-password:" label-for="form-register-input-repassword">
+    <b-form-group label="Re-password:" label-for="form-register-input-repassword">
       <b-form-input
         id="form-register-input-repassword"
         v-model="repassword"
@@ -18,17 +18,16 @@
       />
       <b-form-invalid-feedback :state="valid.repassword.state">{{ valid.repassword.feedback }}</b-form-invalid-feedback>
     </b-form-group>
-    <b-form-group id="form-register-input-group-email" label="Email:" label-for="form-register-input-email">
+    <b-form-group label="Email:" label-for="form-register-input-email">
       <b-form-input id="form-register-input-email" v-model="user.email" autocomplete="email" :state="valid.email.state" />
       <b-form-invalid-feedback :state="valid.email.state">{{ valid.email.feedback }}</b-form-invalid-feedback>
     </b-form-group>
-    <b-form-group id="form-register-input-group-name" label="Fullname:" label-for="form-register-input-name">
+    <b-form-group label="Fullname:" label-for="form-register-input-name">
       <b-form-input id="form-register-input-name" v-model="user.name" autocomplete="name" :state="valid.name.state" />
       <b-form-invalid-feedback :state="valid.name.state">{{ valid.name.feedback }}</b-form-invalid-feedback>
     </b-form-group>
-    <b-form-group id="form-register-input-group-gender" label="Gender:">
+    <b-form-group label="Gender:">
       <b-form-radio-group
-        id="form-register-input-group-gender"
         v-model="user.gender"
         :options="genders"
         name="form-register-input-gender"
@@ -36,15 +35,15 @@
       />
       <b-form-invalid-feedback :state="valid.gender.state">{{ valid.gender.feedback }}</b-form-invalid-feedback>
     </b-form-group>
-    <b-form-group id="form-register-input-group-birthday" label="Birthday:">
+    <b-form-group label="Birthday:">
       <b-form-input type="date" id="form-register-input-birthday" v-model="user.birthday" autocomplete="bday" :state="valid.birthday.state" />
       <b-form-invalid-feedback :state="valid.birthday.state">{{ valid.birthday.feedback }}</b-form-invalid-feedback>
     </b-form-group>
-    <b-form-group id="form-register-input-group-phone" label="Phone number:" label-for="form-register-input-phone">
+    <b-form-group label="Phone number:" label-for="form-register-input-phone">
       <b-form-input type="tel" id="form-register-input-phone" v-model="user.phone" autocomplete="tel" :state="valid.phone.state" />
       <b-form-invalid-feedback :state="valid.phone.state">{{ valid.phone.feedback }}</b-form-invalid-feedback>
     </b-form-group>
-    <b-form-group id="form-register-input-group-address" label="Address:" label-for="form-register-input-address">
+    <b-form-group label="Address:" label-for="form-register-input-address">
       <b-form-input id="form-register-input-address" v-model="user.address" :state="valid.address.state" />
       <b-form-invalid-feedback :state="valid.address.state">{{ valid.address.feedback }}</b-form-invalid-feedback>
     </b-form-group>

@@ -22,7 +22,7 @@
       </b-card-text>
     </b-card>
 
-    <infinite-loading spinner="spiral" @infinite="loadNews">
+    <infinite-loading ref="infinite-loading" @infinite="loadNews">
       <template slot="spinner">
         <loading variant="secondary" class="mt-3" />
       </template>
@@ -39,11 +39,16 @@
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
   import InfiniteLoading, { StateChanger } from 'vue-infinite-loading';
+  import App from '~/plugins/app';
 
   @Component({
     components: { InfiniteLoading },
   })
   export default class PageNews extends Vue {
+    public mounted() {
+      App.ready(this);
+    }
+
     public loadNews(state: StateChanger) {
       (async () => {
         try {

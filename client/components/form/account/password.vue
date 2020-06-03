@@ -1,14 +1,14 @@
 <template>
-  <b-form id="form-account-password" @submit="submit">
-    <b-form-group id="form-account-password-input-group-oldpassword" label="Current password:" label-for="form-account-password-input-oldpassword">
+  <b-form @submit="submit">
+    <b-form-group label="Current password:" label-for="form-account-password-input-oldpassword">
       <b-form-input id="form-account-password-input-oldpassword" type="password" autocomplete="current-password" v-model="user.old" :state="valid.old.state" />
       <b-form-invalid-feedback :state="valid.old.state">{{ valid.old.feedback }}</b-form-invalid-feedback>
     </b-form-group>
-    <b-form-group id="form-account-password-input-group-newpassword" label="New password:" label-for="form-account-password-input-newpassword">
+    <b-form-group label="New password:" label-for="form-account-password-input-newpassword">
       <b-form-input id="form-account-password-input-newpassword" type="password" autocomplete="new-password" v-model="user.new" :state="valid.new.state" />
       <b-form-invalid-feedback :state="valid.new.state">{{ valid.new.feedback }}</b-form-invalid-feedback>
     </b-form-group>
-    <b-form-group id="form-account-password-input-group-repassword" label="Re-enter new password:" label-for="form-account-password-input-repassword">
+    <b-form-group label="Re-enter new password:" label-for="form-account-password-input-repassword">
       <b-form-input id="form-account-password-input-repassword" type="password" v-model="re" :state="valid.re.state" :disabled="!valid.new.state" />
       <b-form-invalid-feedback :state="valid.re.state">{{ valid.re.feedback }}</b-form-invalid-feedback>
     </b-form-group>

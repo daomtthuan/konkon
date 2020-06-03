@@ -43,13 +43,17 @@ class News {
     'auth'   => [
       'name'   => 'news_auth',
       'type'   => 's',
-      'regex'  => 'id',
-      'length' => 'id',
+      'regex'  => 'name',
+      'length' => 'name',
     ],
   ];
 
   public function __construct(array $data) {
     $this->__data = $data;
+  }
+
+  public function isSetData(string $key) {
+    return isset($this->__data[$key]);
   }
 
   public function getData(string $key) {

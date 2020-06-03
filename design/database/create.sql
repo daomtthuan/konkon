@@ -67,6 +67,24 @@ create table table_product (
 
 -- ------------------------------
 
+create view view_user as (
+	select 
+		user_id,
+    user_account,
+    user_email,
+    user_status,
+    user_name,
+    user_gender,
+    user_birthday,
+    user_phone,
+    user_address
+  from table_user
+);
+
+select * from view_user
+
+-- ------------------------------
+
 delimiter //
 create function createId() returns varchar(32) begin
   return replace(uuid(),'-','');
@@ -116,16 +134,32 @@ end //
 
 create procedure getNewsByPage(_page int, _status int) begin
 	declare _from int default (_page * 10 - 10);
-	select *
+	select 
+		news_id,
+    news_name,
+    news_status,
+    news_title,
+    news_date,
+    news_intro,
+    user_name
   from table_news
+		join table_user on user_id = news_auth
   where
     case when _status = -1 then true else news_status = _status end
 	limit _from, 10;
 end //
 
 create procedure getNewsByName(_name varchar(100), _status int) begin
-	select *
+	select 
+		news_id,
+    news_name,
+    news_status,
+    news_title,
+    news_date,
+    news_intro,
+    user_name
   from table_news
+		join table_user on user_id = news_auth
   where
 		news_name = _name and
     case when _status = -1 then true else news_status = _status end;

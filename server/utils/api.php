@@ -91,11 +91,19 @@ class Request {
     }
     return null;
   }
+
+  public function hasScope(string $scope) {
+    $user = $this->getUser();
+    if (!is_null($user)) {
+      return in_array($scope, $user['scope']);
+    }
+    return false;
+  }
 }
 
 class Response {
   public function __construct() {
-    HTTP::getInstance()->setAccessControl();
+    // HTTP::getInstance()->setAccessControl();
   }
 
   public function sendJson(string $data) {

@@ -5,6 +5,24 @@ require_once __DIR__ . '/../controllers/user.php';
 require_once __DIR__ . '/../utils/api.php';
 
 new class extends Api {
+  protected function _get(Request $request, Response $response) {
+    // if ($request->issetparam()) {
+    //   $user = $request->getUser();
+    //   if (!is_null($user)) {
+    //     var_dump($user);
+    //   } else {
+    //     $response->status(401);
+    //   }
+    // } else {
+    //   $response->status(400);
+    // }
+    if ($request->hasScope('manager')) {
+      $response->sendJson(json_encode(UserController::getInstance()->get()));
+    } else {
+      $response->status(401);
+    }
+  }
+
   protected function _post(Request $request, Response $response) {
     if ($request->isJsonData()) {
       if ($request->isSetData('account', 'password', 'email', 'name', 'gender', 'birthday', 'phone', 'address')) {

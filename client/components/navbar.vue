@@ -48,7 +48,7 @@
       </b-dropdown>
 
       <b-collapse is-nav>
-        <b-navbar-nav>
+        <b-navbar-nav class="ml-auto">
           <b-nav-item to="/" :active="$route.path == '/'"><font-awesome-icon class="mr-2" :icon="['fas', 'home']" />Home</b-nav-item>
           <b-nav-item to="/news" :active="$route.path == '/news'"><font-awesome-icon class="mr-2" :icon="['fas', 'newspaper']" />News</b-nav-item>
           <b-nav-item-dropdown menu-class="mt-2 shadow w-min-100 border border-primary" :class="{ active: $route.path.search('/policy-guide') == 0 }" no-caret>

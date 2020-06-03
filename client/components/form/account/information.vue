@@ -1,19 +1,18 @@
 <template>
-  <b-form id="form-account-information" @submit="submit">
-    <b-form-group id="form-account-information-input-group-account" label="Account:" label-for="form-account-information-input-account" v-if="!isChange">
+  <b-form @submit="submit">
+    <b-form-group label="Account:" label-for="form-account-information-input-account" v-if="!isChange">
       <b-form-input id="form-account-information-input-account" v-model="$auth.user.account" readonly />
     </b-form-group>
-    <b-form-group id="form-account-information-input-group-email" label="Email:" label-for="form-account-information-input-email">
+    <b-form-group label="Email:" label-for="form-account-information-input-email">
       <b-form-input id="form-account-information-input-email" v-model="user.email" autocomplete="email" :state="valid.email.state" :readonly="!isChange" />
       <b-form-invalid-feedback :state="valid.email.state">{{ valid.email.feedback }}</b-form-invalid-feedback>
     </b-form-group>
-    <b-form-group id="form-account-information-input-group-name" label="Fullname:" label-for="form-account-information-input-name">
+    <b-form-group label="Fullname:" label-for="form-account-information-input-name">
       <b-form-input id="form-account-information-input-name" v-model="user.name" autocomplete="name" :state="valid.name.state" :readonly="!isChange" />
       <b-form-invalid-feedback :state="valid.name.state">{{ valid.name.feedback }}</b-form-invalid-feedback>
     </b-form-group>
-    <b-form-group id="form-account-information-input-group-gender" label="Gender:" label-for="form-account-information-input-gender">
+    <b-form-group label="Gender:" label-for="form-account-information-input-gender">
       <b-form-radio-group
-        id="form-account-information-input-group-gender"
         class="pt-2 py-1"
         v-model="user.gender"
         :options="genders"
@@ -23,11 +22,11 @@
       />
       <b-form-invalid-feedback :state="valid.gender.state">{{ valid.gender.feedback }}</b-form-invalid-feedback>
     </b-form-group>
-    <b-form-group id="form-account-information-input-group-birthday" label="Birthday:" label-for="form-account-information-input-birthday">
-      <b-form-input type="date" id="form-account-information-input-birthday" v-model="user.birthday" autocomplete="bday" readonly v-if="!isChange" />
+    <b-form-group label="Birthday:" label-for="form-account-information-input-birthday">
+      <b-form-input type="date" id="form-account-information-input-birthday" v-model="user.birthday" autocomplete="bday" :readonly="!isChange" />
       <b-form-invalid-feedback :state="valid.birthday.state">{{ valid.birthday.feedback }}</b-form-invalid-feedback>
     </b-form-group>
-    <b-form-group id="form-account-information-input-group-phone" label="Phone number:" label-for="form-account-information-input-phone">
+    <b-form-group label="Phone number:" label-for="form-account-information-input-phone">
       <b-form-input
         type="tel"
         id="form-account-information-input-phone"
@@ -38,7 +37,7 @@
       />
       <b-form-invalid-feedback :state="valid.phone.state">{{ valid.phone.feedback }}</b-form-invalid-feedback>
     </b-form-group>
-    <b-form-group id="form-account-information-input-group-address" label="Address:" label-for="form-account-information-input-address">
+    <b-form-group label="Address:" label-for="form-account-information-input-address">
       <b-form-input id="form-account-information-input-address" v-model="user.address" :state="valid.address.state" :readonly="!isChange" />
       <b-form-invalid-feedback :state="valid.address.state">{{ valid.address.feedback }}</b-form-invalid-feedback>
     </b-form-group>

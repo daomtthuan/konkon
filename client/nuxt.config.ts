@@ -30,9 +30,15 @@ export default {
     height: '0.25rem',
   },
   css: ['~/assets/fonts', '~/assets/theme'],
+  plugins: ['~plugins/vue-tables-2'],
   modules: ['@nuxt/components', '@nuxtjs/proxy', 'bootstrap-vue/nuxt', '@nuxtjs/axios', '@nuxtjs/dotenv', '@nuxtjs/auth', 'nuxt-fontawesome'],
   components: {
-    dirs: ['~/components', { path: '~/components/form', prefix: 'form' }, { path: '~/components/form/account', prefix: 'form-account' }],
+    dirs: [
+      '~/components',
+      { path: '~/components/form', prefix: 'form' },
+      { path: '~/components/form/account', prefix: 'form-account' },
+      { path: '~/components/dashboard', prefix: 'dashboard' },
+    ],
   },
   proxy: {
     '/api': {

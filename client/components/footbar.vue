@@ -1,5 +1,5 @@
 <template>
-  <footer id="footbar" class="shadow-lg border-top border-primary bg-light py-5">
+  <footer class="shadow-lg border-top border-primary bg-light py-5">
     <b-container>
       <b-row>
         <b-col md="6" class="py-2">

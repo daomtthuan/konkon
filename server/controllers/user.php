@@ -25,6 +25,14 @@ class UserController {
     return null;
   }
 
+  public function get() {
+    $users = [];
+    foreach (Provider::getInstance()->executeQuery('select * from view_user') as $data) {
+      $users[] = Provider::getInstance()->modelToArray(new User($data));
+    }
+    return $users;
+  }
+
   public function getById(string $id, int $status, int $scopeStatus) {
     $query = Provider::getInstance()->getBindQuery(User::class, ['id' => $id, 'status' => $status]);
     if (!is_null($query)) {

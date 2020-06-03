@@ -1,20 +1,14 @@
 <template>
-  <div class="d-flex align-items-center vh-100" v-if="$fetchState.pending">
-    <b-container class="text-center">
-      <logo size="128" tag="h1" subtag="h3" class="mx-auto" />
-      <loading class="mt-3" variant="secondary" />
-    </b-container>
-  </div>
-  <main v-else>
-    <navbar class="sticky-top" />
-    <div class="background">
-      <b-container class="py-5" :fluid="$route.path == '/'">
-        <b-card no-body class="overflow-hidden shadow border border-primary">
-          <nuxt-child id="page" />
+  <main>
+    <dashboard-sidebar />
+    <div :class="{ 'sidebar-visible': $store.state.dashboard.sidebar.isVisible }">
+      <div class="p-4">
+        <dashboard-navbar />
+        <b-card no-body class="overflow-hidden shadow border border-primary mt-4">
+          <nuxt-child />
         </b-card>
-      </b-container>
+      </div>
     </div>
-    <footbar />
   </main>
 </template>
 
@@ -29,8 +23,10 @@
   export default class PageDashboard extends Vue {
     public async fetch() {
       try {
-        await App.fetchCategory(this);
         await App.fetchUser(this);
+        if (!(this.$auth.loggedIn && (this.$auth.hasScope('manager') || this.$auth.hasScope('employee')))) {
+          this.$router.replace('/login');
+        }
       } catch {
         this.$nuxt.error({
           statusCode: 500,
@@ -40,3 +36,9 @@
     }
   }
 </script>
+
+<style lang="scss">
+  .sidebar-visible {
+    padding-left: 320px !important;
+  }
+</style>

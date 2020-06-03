@@ -15,12 +15,17 @@
 
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
+  import App from '~/plugins/app';
 
   @Component({
     scrollToTop: true,
   })
   export default class PageNews_Name extends Vue {
     private content!: string;
+
+    public mounted() {
+      App.ready(this);
+    }
 
     public async fetch() {
       try {

@@ -28,6 +28,10 @@ class CategoryGroup {
     $this->__data = $data;
   }
 
+  public function isSetData(string $key) {
+    return isset($this->__data[$key]);
+  }
+
   public function getData(string $key) {
     return $this->__data[$key];
   }

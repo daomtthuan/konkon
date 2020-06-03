@@ -1,8 +1,8 @@
 <template>
   <b-button type="button" variant="primary" block v-if="!isSend" @click="send">Send verification code</b-button>
-  <b-form id="form-account-verify" @submit="submit" v-else>
-    <b-form-group id="form-account-verify-input-group-code" :state="state">
-      <b-form-input id="form-account-verify-input-code" v-model="code" :state="state" placeholder="Verification code" autocomplete="off" />
+  <b-form @submit="submit" v-else>
+    <b-form-group :state="state">
+      <b-form-input v-model="code" :state="state" placeholder="Verification code" autocomplete="off" />
       <b-form-invalid-feedback :state="state">{{ feedback }}</b-form-invalid-feedback>
     </b-form-group>
     <b-form-group class="text-center">

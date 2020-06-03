@@ -1,7 +1,5 @@
 <template>
-  <loading variant="secondary" class="my-3" v-if="$fetchState.pending" />
-  <div v-else-if="$fetchState.error" class="text-danger">Loading failed</div>
-  <article v-else>
+  <article>
     <h4>{{ $store.state.news.selected.title }}</h4>
     <b-img :src="`/assets/news/images/${$store.state.news.selected.name}.jpg`" fluid thumbnail rounded center class="shadow-sm my-4" />
     <div v-html="content"></div>
@@ -15,7 +13,7 @@
 
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
-  import App from '~/plugins/app';
+  import { Context } from '@nuxt/types';
 
   @Component({
     scrollToTop: true,
@@ -23,18 +21,16 @@
   export default class PageNews_Name extends Vue {
     private content!: string;
 
-    public mounted() {
-      App.ready(this);
-    }
-
-    public async fetch() {
+    public async asyncData(context: Context) {
       try {
-        if (!this.$store.state.news.selected) {
-          this.$store.commit('news/select', (await this.$axios.get('/api/news', { params: { name: this.$route.params.name, status: 1 } })).data);
+        if (!context.store.state.news.selected) {
+          context.store.commit('news/select', (await context.$axios.get('/api/news', { params: { name: context.route.params.name, status: 1 } })).data);
         }
-        this.content = (await this.$axios.get(`/assets/news/contents/${this.$store.state.news.selected.name}.html`)).data;
+        return {
+          content: (await context.$axios.get(`/assets/news/contents/${context.store.state.news.selected.name}.html`)).data,
+        };
       } catch {
-        this.$nuxt.error({
+        context.error({
           statusCode: 404,
           message: 'This page could not be found',
         });

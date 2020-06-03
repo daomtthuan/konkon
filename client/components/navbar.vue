@@ -98,7 +98,6 @@
       <b-row no-gutters>
         <b-col lg="3" md="4" class="pb-2">
           <b-button variant="primary" size="sm" block v-b-toggle.sidebar>Categories List</b-button>
-          <sidebar />
         </b-col>
         <b-col lg="9" md="8" class="pl-sm-3 pb-2">
           <b-form>
@@ -124,10 +123,8 @@
   export default class Navbar extends Vue {
     public async logout() {
       await this.$auth.logout();
-      if (localStorage.session && localStorage.token) {
-        localStorage.removeItem('session');
-        localStorage.removeItem('token');
-      }
+      window.localStorage.removeItem('session');
+      window.localStorage.removeItem('token');
     }
   }
 </script>

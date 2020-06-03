@@ -27,10 +27,8 @@
   export default class DashboardNavbar extends Vue {
     public async logout() {
       await this.$auth.logout();
-      if (localStorage.session && localStorage.token) {
-        localStorage.removeItem('session');
-        localStorage.removeItem('token');
-      }
+      window.localStorage.removeItem('session');
+      window.localStorage.removeItem('token');
     }
   }
 </script>

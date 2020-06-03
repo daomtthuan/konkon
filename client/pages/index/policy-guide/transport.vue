@@ -59,14 +59,9 @@
 
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
-  import App from '~/plugins/app';
 
   @Component({
     scrollToTop: true,
   })
-  export default class PagePolicyTransport extends Vue {
-    public mounted() {
-      App.ready(this);
-    }
-  }
+  export default class PagePolicyTransport extends Vue {}
 </script>

@@ -39,16 +39,11 @@
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
   import InfiniteLoading, { StateChanger } from 'vue-infinite-loading';
-  import App from '~/plugins/app';
 
   @Component({
     components: { InfiniteLoading },
   })
   export default class PageNews extends Vue {
-    public mounted() {
-      App.ready(this);
-    }
-
     public loadNews(state: StateChanger) {
       (async () => {
         try {

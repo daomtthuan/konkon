@@ -103,7 +103,7 @@ class Request {
 
 class Response {
   public function __construct() {
-    // HTTP::getInstance()->setAccessControl();
+    HTTP::getInstance()->setAccessControl();
   }
 
   public function sendJson(string $data) {

@@ -4,24 +4,22 @@
 
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
-  import App from '~/plugins/app';
+  import { Context } from '@nuxt/types';
 
   @Component({
     scrollToTop: true,
   })
   export default class PageDashboardManageUser extends Vue {
-    private dataTable: any[] = [];
-
-    public mounted() {
-      App.ready(this);
-    }
-
-    public fetch() {
-      this.$store.commit('dashboard/setBreadcrumb', [
+    public asyncData(context: Context) {
+      context.store.commit('dashboard/setBreadcrumb', [
         { text: 'Dashboard', to: '/dashboard' },
         { text: 'Manage', active: true },
         { text: 'User', active: true },
       ]);
+
+      return {
+        dataTable: [],
+      };
     }
   }
 </script>

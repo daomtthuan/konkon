@@ -4,14 +4,15 @@
 
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
+  import { Context } from '@nuxt/types';
 
   @Component({
     scrollToTop: true,
   })
   export default class PageDashboardManage extends Vue {
-    public fetch() {
-      if (!this.$auth.hasScope('manager')) {
-        this.$router.replace('/dashboard');
+    public asyncData(context: Context) {
+      if (!context.$auth.hasScope('manager')) {
+        context.redirect('/dashboard');
       }
     }
   }

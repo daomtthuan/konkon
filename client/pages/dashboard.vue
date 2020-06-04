@@ -21,7 +21,7 @@
     scrollToTop: true,
   })
   export default class PageDashboard extends Vue {
-    public async asyncData(context: Context) {
+    public asyncData(context: Context) {
       if (!(context.$auth.loggedIn && (context.$auth.hasScope('manager') || context.$auth.hasScope('employee')))) {
         context.redirect('/login');
       }

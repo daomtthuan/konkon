@@ -32,7 +32,7 @@
     ];
 
     public async asyncData(context: Context) {
-      context.store.commit('dashboard/setBreadcrumb', [
+      context.store.commit('dashboard/navbar/setBreadcrumb', [
         { text: 'Dashboard', to: '/dashboard' },
         { text: 'Manage', active: true },
         { text: 'User', active: true },

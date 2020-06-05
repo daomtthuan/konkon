@@ -90,23 +90,23 @@
       </template>
 
       <template v-slot:cell(actions)="row">
-        <b-button size="sm" @click="info(row.item, row.index, $event.target)">
+        <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="my-1">
           <font-awesome-icon :icon="['fas', 'code']" />
         </b-button>
-        <b-button size="sm" @click="row.toggleDetails">
+        <b-button size="sm" @click="row.toggleDetails" class="my-1">
           <font-awesome-icon :icon="['fas', row.detailsShowing ? 'eye-slash' : 'eye']" />
         </b-button>
-        <b-button size="sm" v-b-modal="`edit-${modal}`" variant="primary" class="mr-3">
+        <b-button size="sm" @click="edit(row.item, row.index, $event.target)" variant="primary" class="my-1 mr-3">
           <font-awesome-icon :icon="['fas', 'edit']" />
         </b-button>
-        <b-button size="sm" variant="danger">
+        <b-button size="sm" variant="danger" class="my-1">
           <font-awesome-icon :icon="['fas', 'trash-alt']" />
         </b-button>
       </template>
 
       <template v-slot:row-details="row">
         <b-card>
-          <ul>
+          <ul class="m-0">
             <div v-for="(value, key) in row.item" :key="key">
               <li v-if="key.search('_') != 0">
                 <b>{{ key }}:</b> {{ value }}
@@ -117,8 +117,9 @@
       </template>
     </b-table>
 
-    <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
-      <pre>{{ infoModal.content }}</pre>
+    <b-modal :id="infoModal.id" :title="infoModal.title" @hide="resetInfoModal" ok-only>
+      <h6>Data JSON:</h6>
+      <pre class="m-0">{{ infoModal.content }}</pre>
     </b-modal>
   </b-container>
 </template>
@@ -166,6 +167,12 @@
       this.infoModal.title = `Row: ${index + 1}`;
       this.infoModal.content = JSON.stringify(item, null, 2);
       this.$root.$emit('bv::show::modal', this.infoModal.id, button);
+    }
+
+    public edit(item: any, index: any, button: any) {
+      this.$store.commit('dashboard/edit/setIndex', index);
+      this.$store.commit('dashboard/edit/setItem', item);
+      this.$root.$emit('bv::show::modal', `edit-${this.modal}`, button);
     }
 
     public resetInfoModal() {

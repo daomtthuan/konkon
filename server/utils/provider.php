@@ -80,6 +80,55 @@ class Provider {
     return $result;
   }
 
+  public function getOrderQuery($modelClass, string $sort) {
+    if ($sort != "") {
+      $explode = explode("|", $sort);
+      if (count($explode) == 2) {
+        if ($explode[1] == 'desc' || $explode[1] == 'asc') {
+          if (isset($modelClass::$keys[$explode[0]])) {
+            return 'order by ' . $modelClass::$keys[$explode[0]]['name'] . ' ' . $explode[1];
+          }
+        }
+      }
+      return null;
+    } else {
+      return '';
+    }
+  }
+
+  public function getLimitQuery(string $page, string $perPage) {
+    if (is_numeric($page) && is_numeric($perPage)) {
+      return 'limit ' . ($page * $perPage - $perPage) . ", $perPage";
+    }
+    return null;
+  }
+
+  public function getViewData(int $total, string $url, string $sort, array $data, int $page, string $perPage) {
+    $last = ceil($total / $perPage);
+    $from = $page * $perPage - $perPage + 1;
+    $to   = $from + $perPage - 1;
+
+    $result = [
+      'total'        => $total,
+      'per_page'     => $perPage,
+      'current_page' => $page,
+      'last_page'    => $last,
+      'from'         => $from,
+      'to'           => $to > $total ? $total : $to,
+      'data'         => $data,
+    ];
+
+    if ($page - 1 > 0) {
+      $result['prev_page_url'] = "$url?sort=$sort&page=" . ($page - 1) . "&per_page=$perPage";
+    }
+
+    if ($page < $last) {
+      $result['next_page_url'] = "$url?sort=$sort&page=" . ($page + 1) . "&per_page=$perPage";
+    }
+
+    return $result;
+  }
+
   public function modelToArray($model) {
     $result = [];
     foreach ($model::$keys as $key => $value) {

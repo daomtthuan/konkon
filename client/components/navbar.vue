@@ -1,5 +1,5 @@
 <template>
-  <div id="navbar" class="shadow-lg border-bottom border-primary">
+  <div class="shadow-lg border-bottom border-primary">
     <b-navbar toggleable="lg" variant="light">
       <b-navbar-brand to="/" class="font-logo">
         <div class="logo-32 d-inline-block align-top mr-1"></div>
@@ -129,28 +129,26 @@
   }
 </script>
 
-<style lang="scss">
-  #navbar {
-    .nav-item.active {
-      .nav-link {
-        color: var(--primary) !important;
-        font-weight: bold !important;
-      }
-    }
-
-    .nav-link.active {
+<style lang="scss" scoped>
+  .nav-item.active {
+    .nav-link {
       color: var(--primary) !important;
       font-weight: bold !important;
     }
+  }
 
-    .dropdown-item.active {
-      color: var(--primary) !important;
-      font-weight: bold !important;
-      background-color: transparent !important;
-    }
+  .nav-link.active {
+    color: var(--primary) !important;
+    font-weight: bold !important;
+  }
 
-    .menu {
-      min-width: 230px;
-    }
+  .dropdown-item.active {
+    color: var(--primary) !important;
+    font-weight: bold !important;
+    background-color: transparent !important;
+  }
+
+  .menu {
+    min-width: 230px;
   }
 </style>

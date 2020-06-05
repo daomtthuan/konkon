@@ -1,64 +1,42 @@
 <template>
-  <vuetable ref="vuetable" api-url="https://vuetable.ratiw.net/api/users" :fields="['name', 'email', 'birthdate']" />
+  <div>
+    <dashboard-table api="/api/user" :fields="fields" modal="user" />
+    <dashboard-edit-user />
+  </div>
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from 'nuxt-property-decorator';
+  import { Component, Vue, Watch } from 'nuxt-property-decorator';
   import { Context } from '@nuxt/types';
 
   @Component({
     scrollToTop: true,
   })
   export default class PageDashboardManageUser extends Vue {
+    private fields = [
+      { key: 'account', label: 'Account', sortable: true },
+      { key: 'name', label: 'Name', sortable: true },
+      {
+        key: 'gender',
+        label: 'Gender',
+        formatter: (gender: number) => (gender == 1 ? 'Male' : 'Fefale'),
+        sortable: true,
+        sortByFormatted: true,
+        filterByFormatted: true,
+        stickyColumn: true,
+      },
+      { key: 'birthday', label: 'Birthday', sortable: true, class: 'text-right', stickyColumn: true },
+      { key: 'phone', label: 'Phone', sortable: true, class: 'text-right', stickyColumn: true },
+      { key: 'address', label: 'Address', sortable: true },
+      { key: 'actions', label: 'Actions' },
+    ];
+
     public async asyncData(context: Context) {
       context.store.commit('dashboard/setBreadcrumb', [
         { text: 'Dashboard', to: '/dashboard' },
         { text: 'Manage', active: true },
         { text: 'User', active: true },
       ]);
-
-      const data = (await context.$axios.get('/api/user')).data;
-
-      return {
-        dataTable: data.concat(
-          data.concat(
-            data.concat(
-              data.concat(
-                data.concat(
-                  data.concat(
-                    data.concat(
-                      data.concat(
-                        data.concat(
-                          data.concat(
-                            data.concat(
-                              data.concat(data.concat(data.concat(data.concat(data.concat(data.concat(data.concat(data.concat(data.concat(data)))))))))
-                            )
-                          )
-                        )
-                      )
-                    )
-                  )
-                )
-              )
-            )
-          )
-        ),
-        columns: Object.keys(data[0]),
-        options: {
-          selectable: {
-            mode: 'single', // or 'multiple'
-            only: function(row: any) {
-              return true; // any condition
-            },
-          },
-        },
-      };
     }
   }
 </script>
-
-<style lang="scss">
-  .VueTables__wrapper {
-    max-height: 500px; // or whatever suits your needs
-  }
-</style>

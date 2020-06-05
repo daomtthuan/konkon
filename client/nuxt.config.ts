@@ -35,10 +35,10 @@ export default {
   components: {
     dirs: [
       '~/components',
-      '~/node_modules/vuetable-2/src/components',
       { path: '~/components/form', prefix: 'form' },
       { path: '~/components/form/account', prefix: 'form-account' },
       { path: '~/components/dashboard', prefix: 'dashboard' },
+      { path: '~/components/dashboard/edit', prefix: 'dashboard-edit' },
     ],
   },
   proxy: {

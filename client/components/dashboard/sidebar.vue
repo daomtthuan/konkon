@@ -1,15 +1,5 @@
 <template>
-  <b-sidebar
-    id="sidebar"
-    body-class="border-right border-primary"
-    shadow="lg"
-    no-close-on-esc
-    no-close-on-backdrop
-    no-close-on-route-change
-    no-header
-    :visible="$store.state.dashboard.sidebar.isVisible"
-    @change="toggleSidebar"
-  >
+  <b-sidebar id="dashboard-sidebar" class="border-right border-primary" shadow="lg" backdrop>
     <div class="p-4">
       <logo size="64" tag="h3" subtag="h5" />
       <hr class="bg-primary" />
@@ -28,9 +18,5 @@
   import { Component, Vue } from 'nuxt-property-decorator';
 
   @Component
-  export default class DashboardSidebar extends Vue {
-    public toggleSidebar(visible: boolean) {
-      this.$store.commit('dashboard/setVisibleSidebar', visible);
-    }
-  }
+  export default class DashboardSidebar extends Vue {}
 </script>

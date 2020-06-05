@@ -16,6 +16,7 @@
 
   @Component
   export default class LayoutError extends Vue {
-    @Prop() private error!: Error;
+    @Prop(Error)
+    private readonly error!: Error;
   }
 </script>

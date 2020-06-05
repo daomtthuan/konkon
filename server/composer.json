@@ -1,13 +1,16 @@
 {
-    "name": "daomtthuan/konkon-server",
-    "description": "KonKon - Computer Store",
-    "type": "project",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Daomtthuan",
-            "email": "dao.mt.thuan@gmail.com"
-        }
-    ],
-    "require": {}
+  "name": "daomtthuan/konkon-server",
+  "description": "KonKon - Computer Store",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Daomtthuan",
+      "email": "dao.mt.thuan@gmail.com"
+    }
+  ],
+  "require": {
+    "vlucas/phpdotenv": "^4.1",
+    "phpmailer/phpmailer": "^6.1"
+  }
 }

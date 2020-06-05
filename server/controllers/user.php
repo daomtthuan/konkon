@@ -25,10 +25,32 @@ class UserController {
     return null;
   }
 
-  public function get() {
+  // public function getView(string $sort, string $page, string $perPage) {
+  //   $queryOrder = Provider::getInstance()->getOrderQuery(User::class, $sort);
+  //   if (!is_null($queryOrder)) {
+  //     $queryLimit = Provider::getInstance()->getLimitQuery($page, $perPage);
+  //     if (!is_null($queryLimit)) {
+  //       $users = [];
+  //       foreach (Provider::getInstance()->executeQuery("select * from view_user $queryOrder $queryLimit") as $data) {
+  //         $users[] = Provider::getInstance()->modelToArray(new User($data));
+  //       }
+  //       return Provider::getInstance()->getViewData(
+  //         Provider::getInstance()->executeQuery('select count(*) as total from view_user')[0]['total'],
+  //         '/api/user', $sort, $users, $page, $perPage
+  //       );
+  //     }
+  //   }
+  //   return null;
+  // }
+
+  public function getView() {
     $users = [];
     foreach (Provider::getInstance()->executeQuery('select * from view_user') as $data) {
-      $users[] = Provider::getInstance()->modelToArray(new User($data));
+      $user = Provider::getInstance()->modelToArray(new User($data));
+      if ($user['status'] != 1) {
+        $user['_rowVariant'] = $user['status'] == 2 ? 'warning' : 'secondary';
+      }
+      $users[] = $user;
     }
     return $users;
   }

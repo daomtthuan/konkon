@@ -238,7 +238,189 @@ insert into table_user values(
 
 insert into table_user values(
 	'552c6852a21811eaa97b00ffe7dc46aa', -- id
-  'customer', -- account
+  'customer1', -- account
+  '$2y$10$M7teb7LXXGkvZKrQS4tJQOqGG6tVN089tj3WDF.oas8fQgvCrrmDO', -- password
+  'customer.konkon.computerstore@gmail.com', -- email
+  1, -- status
+  'Will Dunn', -- name
+  1, -- gender
+  '1983-11-30', -- birthday
+  '08473994873', -- phone
+  '3143 Apple Lane, Macomb, Illinois' -- address
+);
+
+insert into table_user values(
+	createId(), -- id
+  'customer2', -- account
+  '$2y$10$M7teb7LXXGkvZKrQS4tJQOqGG6tVN089tj3WDF.oas8fQgvCrrmDO', -- password
+  'customer.konkon.computerstore@gmail.com', -- email
+  1, -- status
+  'Will Dunn', -- name
+  1, -- gender
+  '1983-11-30', -- birthday
+  '08473994873', -- phone
+  '3143 Apple Lane, Macomb, Illinois' -- address
+);
+
+insert into table_user values(
+	createId(), -- id
+  'customer3', -- account
+  '$2y$10$M7teb7LXXGkvZKrQS4tJQOqGG6tVN089tj3WDF.oas8fQgvCrrmDO', -- password
+  'customer.konkon.computerstore@gmail.com', -- email
+  1, -- status
+  'Will Dunn', -- name
+  1, -- gender
+  '1983-11-30', -- birthday
+  '08473994873', -- phone
+  '3143 Apple Lane, Macomb, Illinois' -- address
+);
+
+insert into table_user values(
+	createId(), -- id
+  'customer4', -- account
+  '$2y$10$M7teb7LXXGkvZKrQS4tJQOqGG6tVN089tj3WDF.oas8fQgvCrrmDO', -- password
+  'customer.konkon.computerstore@gmail.com', -- email
+  1, -- status
+  'Will Dunn', -- name
+  1, -- gender
+  '1983-11-30', -- birthday
+  '08473994873', -- phone
+  '3143 Apple Lane, Macomb, Illinois' -- address
+);
+
+insert into table_user values(
+	createId(), -- id
+  'customer5', -- account
+  '$2y$10$M7teb7LXXGkvZKrQS4tJQOqGG6tVN089tj3WDF.oas8fQgvCrrmDO', -- password
+  'customer.konkon.computerstore@gmail.com', -- email
+  1, -- status
+  'Will Dunn', -- name
+  1, -- gender
+  '1983-11-30', -- birthday
+  '08473994873', -- phone
+  '3143 Apple Lane, Macomb, Illinois' -- address
+);
+
+insert into table_user values(
+	createId(), -- id
+  'customer6', -- account
+  '$2y$10$M7teb7LXXGkvZKrQS4tJQOqGG6tVN089tj3WDF.oas8fQgvCrrmDO', -- password
+  'customer.konkon.computerstore@gmail.com', -- email
+  2, -- status
+  'Will Dunn', -- name
+  1, -- gender
+  '1983-11-30', -- birthday
+  '08473994873', -- phone
+  '3143 Apple Lane, Macomb, Illinois' -- address
+);
+
+insert into table_user values(
+	createId(), -- id
+  'customer7', -- account
+  '$2y$10$M7teb7LXXGkvZKrQS4tJQOqGG6tVN089tj3WDF.oas8fQgvCrrmDO', -- password
+  'customer.konkon.computerstore@gmail.com', -- email
+  1, -- status
+  'Will Dunn', -- name
+  1, -- gender
+  '1983-11-30', -- birthday
+  '08473994873', -- phone
+  '3143 Apple Lane, Macomb, Illinois' -- address
+);
+
+insert into table_user values(
+	createId(), -- id
+  'customer8', -- account
+  '$2y$10$M7teb7LXXGkvZKrQS4tJQOqGG6tVN089tj3WDF.oas8fQgvCrrmDO', -- password
+  'customer.konkon.computerstore@gmail.com', -- email
+  1, -- status
+  'Will Dunn', -- name
+  1, -- gender
+  '1983-11-30', -- birthday
+  '08473994873', -- phone
+  '3143 Apple Lane, Macomb, Illinois' -- address
+);
+
+insert into table_user values(
+	createId(), -- id
+  'customer9', -- account
+  '$2y$10$M7teb7LXXGkvZKrQS4tJQOqGG6tVN089tj3WDF.oas8fQgvCrrmDO', -- password
+  'customer.konkon.computerstore@gmail.com', -- email
+  2, -- status
+  'Will Dunn', -- name
+  1, -- gender
+  '1983-11-30', -- birthday
+  '08473994873', -- phone
+  '3143 Apple Lane, Macomb, Illinois' -- address
+);
+
+insert into table_user values(
+	createId(), -- id
+  'customer10', -- account
+  '$2y$10$M7teb7LXXGkvZKrQS4tJQOqGG6tVN089tj3WDF.oas8fQgvCrrmDO', -- password
+  'customer.konkon.computerstore@gmail.com', -- email
+  2, -- status
+  'Will Dunn', -- name
+  1, -- gender
+  '1983-11-30', -- birthday
+  '08473994873', -- phone
+  '3143 Apple Lane, Macomb, Illinois' -- address
+);
+
+insert into table_user values(
+	createId(), -- id
+  'customer11', -- account
+  '$2y$10$M7teb7LXXGkvZKrQS4tJQOqGG6tVN089tj3WDF.oas8fQgvCrrmDO', -- password
+  'customer.konkon.computerstore@gmail.com', -- email
+  1, -- status
+  'Will Dunn', -- name
+  1, -- gender
+  '1983-11-30', -- birthday
+  '08473994873', -- phone
+  '3143 Apple Lane, Macomb, Illinois' -- address
+);
+
+insert into table_user values(
+	createId(), -- id
+  'customer12', -- account
+  '$2y$10$M7teb7LXXGkvZKrQS4tJQOqGG6tVN089tj3WDF.oas8fQgvCrrmDO', -- password
+  'customer.konkon.computerstore@gmail.com', -- email
+  1, -- status
+  'Will Dunn', -- name
+  1, -- gender
+  '1983-11-30', -- birthday
+  '08473994873', -- phone
+  '3143 Apple Lane, Macomb, Illinois' -- address
+);
+
+insert into table_user values(
+	createId(), -- id
+  'customer13', -- account
+  '$2y$10$M7teb7LXXGkvZKrQS4tJQOqGG6tVN089tj3WDF.oas8fQgvCrrmDO', -- password
+  'customer.konkon.computerstore@gmail.com', -- email
+  2, -- status
+  'Will Dunn', -- name
+  1, -- gender
+  '1983-11-30', -- birthday
+  '08473994873', -- phone
+  '3143 Apple Lane, Macomb, Illinois' -- address
+);
+
+insert into table_user values(
+	createId(), -- id
+  'customer14', -- account
+  '$2y$10$M7teb7LXXGkvZKrQS4tJQOqGG6tVN089tj3WDF.oas8fQgvCrrmDO', -- password
+  'customer.konkon.computerstore@gmail.com', -- email
+  2, -- status
+  'Will Dunn', -- name
+  1, -- gender
+  '1983-11-30', -- birthday
+  '08473994873', -- phone
+  '3143 Apple Lane, Macomb, Illinois' -- address
+);
+
+insert into table_user values(
+	createId(), -- id
+  'customer15', -- account
   '$2y$10$M7teb7LXXGkvZKrQS4tJQOqGG6tVN089tj3WDF.oas8fQgvCrrmDO', -- password
   'customer.konkon.computerstore@gmail.com', -- email
   2, -- status

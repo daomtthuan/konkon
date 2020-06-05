@@ -20,15 +20,23 @@
     scrollToTop: true,
   })
   export default class LayoutDefault extends Vue {
+    private authFailed = false;
+
     public async fetch() {
       try {
         await App.fetchUser(this);
         await Plugins.delay(100);
       } catch {
-        this.$nuxt.error({
-          statusCode: 500,
-          message: 'Oops, something went wrong',
-        });
+        this.authFailed = true;
+      }
+    }
+
+    public beforeMount() {
+      if (this.authFailed) {
+        this.$bvToast.toast('Please login again', { title: 'User authentication failed', variant: 'danger' });
+        if (this.$route.path != '/login') {
+          this.$router.replace('/login');
+        }
       }
     }
   }

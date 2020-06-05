@@ -220,8 +220,8 @@
           this.$store.commit('account/reverseChangeInformation');
         } catch {
           this.$bvToast.toast('Change information failed', { title: 'Error', variant: 'danger' });
-          this.busy = false;
         }
+        this.busy = false;
       } else {
         this.$bvToast.toast('Invalid information', { title: 'Change information failed', variant: 'warning' });
       }

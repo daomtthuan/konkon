@@ -14,7 +14,7 @@ new class extends Api {
           if (!is_null($categoryGroups)) {
             $response->sendJson(json_encode($categoryGroups));
           } else {
-            $response->status(500);
+            $response->status(400);
           }
           break;
 

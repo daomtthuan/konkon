@@ -35,7 +35,7 @@ new class extends Api {
       if ($request->isJsonData()) {
         switch ($request->getParam('mode')) {
         case 'information':
-          if ($request->isSetData('id', 'email', 'name', 'gender', 'birthday', 'phone', 'address')) {
+          if ($request->isSetData('id', 'email', 'name', 'gender', 'birthday', 'phone', 'address', 'status')) {
             $user = UserController::getInstance()->getById($request->getData('id'), -1);
             if (!is_null($user)) {
               if (UserController::getInstance()->set(
@@ -47,12 +47,10 @@ new class extends Api {
                 $request->getData('phone'),
                 $request->getData('address')
               )) {
-                if ($user['email'] != $request->getData('email')) {
-                  if (UserController::getInstance()->setStatus($user['id'], 2)) {
-                    $response->status(200);
-                  } else {
-                    $response->status(500);
-                  }
+                if (UserController::getInstance()->setStatus($user['id'], $request->getData('status'))) {
+                  $response->status(200);
+                } else {
+                  $response->status(400);
                 }
               } else {
                 $response->status(400);
@@ -73,7 +71,7 @@ new class extends Api {
               if (!is_null($password)) {
                 $response->sendJson(json_encode(['password' => $password]));
               } else {
-                $response->status(500);
+                $response->status(400);
               }
             } else {
               $response->status(400);
@@ -100,7 +98,11 @@ new class extends Api {
       if ($request->isSetParam('id')) {
         $user = UserController::getInstance()->getById($request->getParam('id'), -1);
         if (!is_null($user)) {
-
+          if (UserController::getInstance()->remove($user['id'])) {
+            $response->status(200);
+          } else {
+            $response->status(400);
+          }
         } else {
           $response->status(400);
         }

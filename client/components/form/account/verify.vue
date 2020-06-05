@@ -6,7 +6,9 @@
       <b-form-invalid-feedback :state="state">{{ feedback }}</b-form-invalid-feedback>
     </b-form-group>
     <b-form-group class="text-center">
-      <b-button type="submit" variant="primary" :disabled="!state">Verify</b-button>
+      <b-overlay :show="busy" rounded opacity="0.7" spinner-small spinner-variant="primary" class="d-inline-block">
+        <b-button type="submit" variant="primary" :disabled="!state || busy">Verify</b-button>
+      </b-overlay>
     </b-form-group>
     <b-form-group class="text-center">
       <b-link @click="send" :disabled="count > 0" :class="{ 'text-muted': count > 0 }">
@@ -22,6 +24,7 @@
 
   @Component
   export default class FormAccountVerify extends Vue {
+    private busy = false;
     private count = 0;
     private isSend = false;
     private state = false;
@@ -67,6 +70,7 @@
     public async submit(event: Event) {
       event.preventDefault();
       if (this.state) {
+        this.busy = true;
         try {
           await this.$axios.post(`/api/verify`, { code: this.code });
           await this.$auth.fetchUser();
@@ -80,6 +84,7 @@
             this.$bvToast.toast('Verify failed', { title: 'Error', variant: 'danger' });
           }
         }
+        this.busy = false;
       } else {
         this.$bvToast.toast('Invalid verification code', { title: 'Verify failed', variant: 'warning' });
       }

@@ -56,7 +56,7 @@ new class extends Api {
                   if (UserController::getInstance()->setStatus($user['id'], 2)) {
                     $response->status(200);
                   } else {
-                    $response->status(500);
+                    $response->status(400);
                   }
                 }
               } else {

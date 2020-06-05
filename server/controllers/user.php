@@ -46,12 +46,7 @@ class UserController {
   public function getView() {
     $users = [];
     foreach (Provider::getInstance()->executeQuery('select * from view_user') as $data) {
-      $user = Provider::getInstance()->modelToArray(new User($data));
-      if ($user['status'] != 1) {
-        $user['_rowVariant'] = $user['status'] == 2 ? 'warning' : 'secondary';
-      }
-      $user['_showDetails'] = false;
-      $users[]              = $user;
+      $users[] = Provider::getInstance()->modelToArray(new User($data));
     }
     return $users;
   }
@@ -164,6 +159,16 @@ class UserController {
     ]);
     if (!is_null($query)) {
       Provider::getInstance()->executeNonQuery('call setStatusUser(?, ?)', $query['type'], ...$query['vars']);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public function remove(string $id) {
+    $query = Provider::getInstance()->getBindQuery(User::class, ['id' => $id]);
+    if (!is_null($query)) {
+      Provider::getInstance()->executeNonQuery('call deleteUser(?)', $query['type'], ...$query['vars']);
       return true;
     } else {
       return false;

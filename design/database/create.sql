@@ -3,7 +3,7 @@ create database konkon;
 use konkon;
 
 create table table_user (
-  user_id varchar(32) not null primary key,
+  user_id varchar(32) not null,
   user_account varchar(100) not null unique,
   user_password varchar(100) not null,
   user_email varchar(100) not null,
@@ -12,57 +12,79 @@ create table table_user (
   user_gender bit not null, -- 1: male, 0: female
   user_birthday date not null,
   user_phone varchar(15) not null,
-  user_address varchar(200) not null
+  user_address varchar(200) not null,
+  
+  primary key (user_id)
 );
 
 create table table_scope (
-  scope_id varchar(32) not null primary key,
+  scope_id varchar(32) not null,
   scope_name varchar(100) not null unique,
-  scope_status bit not null -- 1: enable, 0: disable
+  scope_status bit not null, -- 1: enable, 0: disable
+  
+  primary key (scope_id)
 );
 
 create table table_userScope (
-	userScope_user varchar(32) not null references table_user(user_id),
-  userScope_scope varchar(32) not null references table_scope(scope_id)
+	userScope_user varchar(32) not null,
+  userScope_scope varchar(32) not null,
+  
+  primary key (userScope_user, userScope_scope),
+  foreign key (userScope_user) references table_user(user_id),
+  foreign key (userScope_scope) references table_scope(scope_id)
 );
 
 create table table_news (
-  news_id varchar(32) not null primary key,
+  news_id varchar(32) not null,
   news_name varchar(100) not null unique,
   news_status bit not null, -- 1: enable, 0: disable
   news_title varchar(100) not null,
 	news_date date not null,
   news_intro varchar(500) not null,
-  news_auth varchar(32) not null references table_user(user_id)
+  news_auth varchar(32) not null,
+  
+  primary key (news_id),
+  foreign key (news_auth) references table_user(user_id)
 );
 
 create table table_categoryGroup (
-  categoryGroup_id varchar(32) not null primary key,
+  categoryGroup_id varchar(32) not null,
   categoryGroup_name varchar(100) not null unique,
-  categoryGroup_status bit not null -- 1: enable, 0: disable
+  categoryGroup_status bit not null, -- 1: enable, 0: disable
+  
+  primary key (categoryGroup_id)
 );
 
 create table table_category (
-  category_id varchar(32) not null primary key,
+  category_id varchar(32) not null,
   category_name varchar(100) not null unique,
   category_status bit not null, -- 1: enable, 0: disable
-  category_categoryGroup varchar(32) not null references categoryGroup(categoryGroup_id)
+  category_categoryGroup varchar(32) not null,
+  
+  primary key (category_id),
+  foreign key (category_categoryGroup) references table_categoryGroup(categoryGroup_id)
 );
 
 create table table_brand (
-  brand_id varchar(32) not null primary key,
+  brand_id varchar(32) not null,
   brand_name varchar(100) not null unique,
-  brand_status bit not null -- 1: enable, 0: disable
+  brand_status bit not null, -- 1: enable, 0: disable
+  
+  primary key (brand_id)
 );
 
 create table table_product (
-  product_id varchar(32) not null primary key,
+  product_id varchar(32) not null,
   product_name varchar(100) not null unique,
   product_status bit not null, -- 1: enable, 0: disable
   product_price int not null,
   product_quantity int not null,
-  product_category varchar(32) not null references table_category(category_id),
-	product_brand varchar(32) not null references table_brand(brand_id)
+  product_category varchar(32) not null,
+	product_brand varchar(32) not null,
+  
+  primary key (product_id),
+  foreign key (product_category) references table_category(category_id),
+	foreign key (product_brand) references table_brand(brand_id)
 );
 
 -- ------------------------------
@@ -80,8 +102,6 @@ create view view_user as (
     user_address
   from table_user
 );
-
-select * from view_user
 
 -- ------------------------------
 
@@ -141,7 +161,7 @@ create procedure getNewsByPage(_page int, _status int) begin
     news_title,
     news_date,
     news_intro,
-    user_name
+    user_name as news_auth
   from table_news
 		join table_user on user_id = news_auth
   where
@@ -157,7 +177,7 @@ create procedure getNewsByName(_name varchar(100), _status int) begin
     news_title,
     news_date,
     news_intro,
-    user_name
+    user_name as news_auth
   from table_news
 		join table_user on user_id = news_auth
   where
@@ -206,6 +226,20 @@ create procedure setStatusUser(_id varchar(32), _status int) begin
 		user_status = _status
 	where user_id = _id;
 end //
+
+-- ------------------------------             
+
+create procedure deleteUser(_id varchar(32)) begin
+	delete from table_news
+  where news_auth = _id;
+  
+	delete from table_userScope
+  where userScope_user = _id;
+  
+	delete from table_user
+  where user_id = _id;
+end //
+
 delimiter ;
 
 -- ------------------------------
@@ -958,5 +992,3 @@ insert into table_news values(
   'Buy an ASUS Router to get a cool ROG mask', -- intro
   '7954040aa22311eaa97b00ffe7dc46aa' -- auth
 );
-
--- select replace(uuid(),'-','')

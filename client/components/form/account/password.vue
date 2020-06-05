@@ -92,8 +92,8 @@
           this.$store.commit('account/reverseChangePassword');
         } catch (error) {
           this.$bvToast.toast('Change password failed', { title: 'Error', variant: 'danger' });
-          this.busy = false;
         }
+        this.busy = false;
       } else {
         this.$bvToast.toast('Invalid information', { title: 'Change password failed', variant: 'warning' });
       }

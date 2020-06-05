@@ -73,9 +73,9 @@
         show-empty
         small
         bordered
-        stacked="lg"
+        responsive="xl"
         class="my-3 shadow-sm"
-        :items="$store.state.dashboard.table.items"
+        :items="$store.getters['dashboard/table/getItems']"
         :fields="fields"
         :current-page="currentPage"
         :per-page="perPage"
@@ -86,23 +86,28 @@
         :sort-direction="sortDirection"
         @filtered="onFiltered"
       >
-        <template v-slot:cell(index)="row">
-          {{ row.index + 1 }}
-        </template>
-
         <template v-slot:cell(actions)="row">
-          <b-button size="sm" @click="info(row.item, row.index, $event.target)">
-            <font-awesome-icon :icon="['fas', 'code']" />
-          </b-button>
-          <b-button size="sm" @click="row.toggleDetails">
-            <font-awesome-icon :icon="['fas', row.detailsShowing ? 'eye-slash' : 'eye']" />
-          </b-button>
-          <b-button size="sm" @click="edit(row.item, row.index, $event.target)" variant="primary" class="mr-3">
-            <font-awesome-icon :icon="['fas', 'edit']" />
-          </b-button>
-          <b-button size="sm" @click="remove(row.item)" variant="danger">
-            <font-awesome-icon :icon="['fas', 'trash-alt']" />
-          </b-button>
+          <b-container fluid class="p-0">
+            <b-row no-gutters>
+              <b-col xl="4" lg="12" class="p-1">
+                <b-button size="sm" @click="info(row.item, row.index, $event.target)" block>
+                  <font-awesome-icon :icon="['fas', 'code']" />
+                </b-button>
+              </b-col>
+              <b-col xl="4" lg="6" md="12" class="p-1">
+                <b-button size="sm" @click="edit(row.item, row.index, $event.target)" variant="primary" block>
+                  <font-awesome-icon :icon="['fas', 'edit']" />
+                </b-button>
+              </b-col>
+              <b-col xl="4" lg="6" md="12" class="p-1">
+                <b-overlay :show="busy" rounded opacity="0.7" spinner-small spinner-variant="primary">
+                  <b-button size="sm" @click="remove(row.item, row.index)" variant="danger" :disabled="busy" block>
+                    <font-awesome-icon :icon="['fas', 'trash-alt']" />
+                  </b-button>
+                </b-overlay>
+              </b-col>
+            </b-row>
+          </b-container>
         </template>
 
         <template v-slot:row-details="row">
@@ -141,7 +146,8 @@
     @Prop(String)
     private readonly modal!: string;
 
-    private totalRows = this.$store.state.dashboard.table.items.length;
+    private busy = false;
+    private totalRows = this.$store.getters['dashboard/table/getItems'].length;
     private currentPage = 1;
     private perPage = 10;
     private pageOptions = [10, 50, 100];
@@ -172,7 +178,7 @@
       this.$root.$emit('bv::show::modal', `edit-${this.modal}`, button);
     }
 
-    public async remove(item: any) {
+    public async remove(item: any, index: any) {
       if (
         await this.$bvModal.msgBoxConfirm('Data will not be recoverable after deletion. Delete anyway?', {
           title: 'Delete',
@@ -186,7 +192,14 @@
           centered: true,
         })
       ) {
-        this.$axios.delete(this.api, { params: { id: item.id } });
+        this.busy = true;
+        try {
+          await this.$axios.delete(this.api, { params: { id: item.id } });
+          this.$store.commit('dashboard/table/removeItem', index);
+        } catch {
+          this.$bvToast.toast('Delete failed', { title: 'Error', variant: 'danger' });
+        }
+        this.busy = false;
       }
     }
 

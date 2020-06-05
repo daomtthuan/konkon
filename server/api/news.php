@@ -29,7 +29,7 @@ new class extends Api {
           if (!is_null($posts)) {
             $response->sendJson(json_encode($posts));
           } else {
-            $response->status(500);
+            $response->status(400);
           }
           break;
 

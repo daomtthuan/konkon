@@ -45,19 +45,18 @@
   })
   export default class PageNews extends Vue {
     public loadNews(state: StateChanger) {
-      (async () => {
-        try {
-          const news = (await this.$axios.get('/api/news', { params: { status: 1, page: this.$store.state.news.page } })).data;
+      this.$axios
+        .get('/api/news', { params: { status: 1, page: this.$store.state.news.page } })
+        .then((response) => {
+          const news = response.data;
           if (news.length > 1) {
             this.$store.commit('news/push', news);
             state.loaded();
           } else {
             state.complete();
           }
-        } catch {
-          state.error();
-        }
-      })();
+        })
+        .catch((error) => state.error());
     }
 
     public select(post: any) {

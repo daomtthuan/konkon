@@ -27,12 +27,7 @@
       <b-form-invalid-feedback :state="valid.name.state">{{ valid.name.feedback }}</b-form-invalid-feedback>
     </b-form-group>
     <b-form-group label="Gender:">
-      <b-form-radio-group
-        v-model="user.gender"
-        :options="genders"
-        name="form-register-input-gender"
-        :state="valid.gender.state"
-      />
+      <b-form-radio-group v-model="user.gender" :options="genders" name="form-register-input-gender" :state="valid.gender.state" />
       <b-form-invalid-feedback :state="valid.gender.state">{{ valid.gender.feedback }}</b-form-invalid-feedback>
     </b-form-group>
     <b-form-group label="Birthday:">
@@ -232,8 +227,8 @@
           } else {
             this.$bvToast.toast('Register failed', { title: 'Error', variant: 'danger' });
           }
-          this.busy = false;
         }
+        this.busy = false;
       } else {
         this.$bvToast.toast('Invalid information', { title: 'Register failed', variant: 'warning' });
       }

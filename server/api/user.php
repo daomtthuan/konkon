@@ -5,31 +5,6 @@ require_once __DIR__ . '/../controllers/user.php';
 require_once __DIR__ . '/../utils/api.php';
 
 new class extends Api {
-  // protected function _get(Request $request, Response $response) {
-  //   if ($request->hasScope('manager')) {
-  //     if ($request->isSetParam('sort', 'page', 'per_page')) {
-  //       $view = UserController::getInstance()->getView($request->getParam('sort'), $request->getParam('page'), $request->getParam('per_page'));
-  //       if (!is_null($view)) {
-  //         $response->sendJson(json_encode($view));
-  //       } else {
-  //         $response->status(400);
-  //       }
-  //     } else {
-  //       $response->status(400);
-  //     }
-  //   } else {
-  //     $response->status(401);
-  //   }
-  // }
-
-  protected function _get(Request $request, Response $response) {
-    if ($request->hasScope('manager')) {
-      $response->sendJson(json_encode(UserController::getInstance()->getView()));
-    } else {
-      $response->status(401);
-    }
-  }
-
   protected function _post(Request $request, Response $response) {
     if ($request->isJsonData()) {
       if ($request->isSetData('account', 'password', 'email', 'name', 'gender', 'birthday', 'phone', 'address')) {
@@ -93,7 +68,7 @@ new class extends Api {
             break;
 
           case 'password':
-            if ($request->isJsonData()) {
+            if ($request->isSetData('old', 'new')) {
               if (UserController::getInstance()->setPassword(
                 $user['id'],
                 $user['password'],

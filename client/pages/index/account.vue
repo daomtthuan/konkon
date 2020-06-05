@@ -29,6 +29,7 @@
 
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
+  import { Context } from '@nuxt/types';
 
   @Component({
     scrollToTop: true,
@@ -38,6 +39,12 @@
       changeInformation: 'Change information',
       changePassword: 'Change password',
     };
+
+    public asyncData(context: Context) {
+      if (!context.$auth.loggedIn) {
+        context.redirect('/login');
+      }
+    }
 
     public changeInformation() {
       this.$store.commit('account/reverseChangeInformation');

@@ -1,12 +1,12 @@
 <template>
-  <div class="shadow-lg border-bottom border-primary">
-    <b-navbar toggleable="lg" variant="light">
+  <div id="navbar" class="shadow-lg border-bottom border-primary">
+    <b-navbar toggleable="md" variant="light">
       <b-navbar-brand to="/" class="font-logo">
         <div class="logo-32 d-inline-block align-top mr-1"></div>
         <span class="text-primary">KonKon</span>
       </b-navbar-brand>
 
-      <b-dropdown menu-class="mt-2 shadow w-min-100 border border-primary menu" class="d-lg-none" no-caret variant="primary" right>
+      <b-dropdown menu-class="mt-2 shadow w-min-100 border border-primary menu" class="d-md-none" no-caret variant="primary" right>
         <template v-slot:button-content>
           <font-awesome-icon :icon="['fas', 'bars']" />
         </template>
@@ -48,7 +48,7 @@
       </b-dropdown>
 
       <b-collapse is-nav>
-        <b-navbar-nav class="ml-auto">
+        <b-navbar-nav>
           <b-nav-item to="/" :active="$route.path == '/'"><font-awesome-icon class="mr-2" :icon="['fas', 'home']" />Home</b-nav-item>
           <b-nav-item to="/news" :active="$route.path == '/news'"><font-awesome-icon class="mr-2" :icon="['fas', 'newspaper']" />News</b-nav-item>
           <b-nav-item-dropdown menu-class="mt-2 shadow w-min-100 border border-primary" :class="{ active: $route.path.search('/policy-guide') == 0 }" no-caret>
@@ -102,10 +102,10 @@
         <b-col lg="9" md="8" class="pl-sm-3 pb-2">
           <b-form>
             <b-input-group>
-              <b-form-input type="search" size="sm" placeholder="Search for products" autocomplete required></b-form-input>
-              <b-input-group-append class="ml-2">
+              <b-form-input type="search" size="sm" placeholder="Search for products" autocomplete required/>
+              <b-input-group-append>
                 <b-button variant="primary" type="submit" size="sm" class="px-3">
-                  <font-awesome-icon class="mr-2" :icon="['fas', 'search']" />
+                  <font-awesome-icon :icon="['fas', 'search']" />
                 </b-button>
               </b-input-group-append>
             </b-input-group>
@@ -129,26 +129,28 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .nav-item.active {
-    .nav-link {
+<style lang="scss">
+  #navbar {
+    .nav-item.active {
+      .nav-link {
+        color: var(--primary) !important;
+        font-weight: bold !important;
+      }
+    }
+
+    .nav-link.active {
       color: var(--primary) !important;
       font-weight: bold !important;
     }
-  }
 
-  .nav-link.active {
-    color: var(--primary) !important;
-    font-weight: bold !important;
-  }
+    .dropdown-item.active {
+      color: var(--primary) !important;
+      font-weight: bold !important;
+      background-color: transparent !important;
+    }
 
-  .dropdown-item.active {
-    color: var(--primary) !important;
-    font-weight: bold !important;
-    background-color: transparent !important;
-  }
-
-  .menu {
-    min-width: 230px;
+    .menu {
+      min-width: 230px;
+    }
   }
 </style>

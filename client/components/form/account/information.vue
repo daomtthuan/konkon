@@ -200,7 +200,7 @@
           this.valid.address = { state: false, feedback: 'Enter address' };
         }
       } else {
-        this.valid.phone.state = null;
+        this.valid.address.state = null;
       }
     }
 

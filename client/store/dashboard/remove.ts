@@ -3,7 +3,7 @@ import { Module, Mutation, VuexModule } from 'vuex-module-decorators';
 @Module({
   stateFactory: true,
 })
-export default class DashboardEditModule extends VuexModule {
+export default class DashboardRemoveModule extends VuexModule {
   private index!: number;
   private item = {
     account: '',

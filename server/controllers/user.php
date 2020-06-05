@@ -50,20 +50,25 @@ class UserController {
       if ($user['status'] != 1) {
         $user['_rowVariant'] = $user['status'] == 2 ? 'warning' : 'secondary';
       }
-      $users[] = $user;
+      $user['_showDetails'] = false;
+      $users[]              = $user;
     }
     return $users;
   }
 
-  public function getById(string $id, int $status, int $scopeStatus) {
+  public function getById(string $id, int $status, int $scopeStatus = null) {
     $query = Provider::getInstance()->getBindQuery(User::class, ['id' => $id, 'status' => $status]);
     if (!is_null($query)) {
       $datas = Provider::getInstance()->executeQuery('call getUserById(?, ?)', $query['type'], ...$query['vars']);
       if (count($datas) == 1) {
-        $user   = Provider::getInstance()->modelToArray(new User($datas[0]));
-        $scopes = UserScopeController::getInstance()->getScope($id, $scopeStatus);
-        if (!is_null($scopes)) {
-          $user['scope'] = $scopes;
+        $user = Provider::getInstance()->modelToArray(new User($datas[0]));
+        if (!is_null($scopeStatus)) {
+          $scopes = UserScopeController::getInstance()->getScope($id, $scopeStatus);
+          if (!is_null($scopes)) {
+            $user['scope'] = $scopes;
+            return $user;
+          }
+        } else {
           return $user;
         }
       }
@@ -131,6 +136,25 @@ class UserController {
       }
     }
     return false;
+  }
+
+  public function resetPassword(string $id) {
+    $characters   = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $randomString = '';
+    for ($i = 0; $i < 15; $i++) {
+      $index = rand(0, strlen($characters) - 1);
+      $randomString .= $characters[$index];
+    }
+
+    $query = Provider::getInstance()->getBindQuery(User::class, [
+      'id'       => $id,
+      'password' => password_hash($randomString, PASSWORD_BCRYPT),
+    ]);
+    if (!is_null($query)) {
+      Provider::getInstance()->executeNonQuery('call setPasswordUser(?, ?)', $query['type'], ...$query['vars']);
+      return $randomString;
+    }
+    return null;
   }
 
   public function setStatus(string $id, int $status) {

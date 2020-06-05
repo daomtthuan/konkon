@@ -15,9 +15,16 @@
 
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
+  import { Context } from '@nuxt/types';
 
   @Component({
     scrollToTop: true,
   })
-  export default class PageRegister extends Vue {}
+  export default class PageRegister extends Vue {
+    public asyncData(context: Context) {
+      if (context.$auth.loggedIn) {
+        context.redirect('/account');
+      }
+    }
+  }
 </script>

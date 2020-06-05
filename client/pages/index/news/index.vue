@@ -23,14 +23,14 @@
     </b-card>
 
     <infinite-loading ref="infinite-loading" @infinite="loadNews">
-      <template slot="spinner">
+      <template v-slot:spinner>
         <loading variant="secondary" class="mt-3" />
       </template>
-      <template slot="no-more">
-        <div class="small text-muted mt-5">No more news</div>
+      <template v-slot:no-more>
+        <div class="text-muted mt-5">No more news</div>
       </template>
-      <template slot="no-results">
-        <div class="small text-muted mt-5">No results news</div>
+      <template v-slot:no-results>
+        <div class="text-muted mt-5">No results news</div>
       </template>
     </infinite-loading>
   </div>

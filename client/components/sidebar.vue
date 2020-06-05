@@ -1,5 +1,8 @@
 <template>
   <b-sidebar id="sidebar" title="Categories List" text-variant="primary" bg-variant="light" backdrop shadow>
+    <template v-slot:header-close>
+      <font-awesome-icon :icon="['fas', 'times']" />
+    </template>
     <aside class="px-2 py-2">
       <b-dropdown
         v-for="(categoryGroup, index) in $store.state.sidebar.categoryGroups"

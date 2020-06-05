@@ -4,19 +4,23 @@
       <font-awesome-icon :icon="['fas', 'bars']" />
     </b-button>
 
-    <b-navbar-brand to="/dashboard" class="font-logo">
+    <b-navbar-brand to="/dashboard" class="font-logo mr-lg-3">
       <div class="logo-32 d-inline-block align-top mr-1"></div>
       <span class="text-primary">KonKon</span>
     </b-navbar-brand>
 
-    <b-collapse is-nav>
+    <b-nav class="d-none d-md-block">
       <b-navbar-nav class="text-truncate">
         <b-breadcrumb :items="$store.state.dashboard.navbar.breadcrumb" class="m-0 p-0 bg-light" />
       </b-navbar-nav>
-      <b-navbar-nav class="ml-auto">
+    </b-nav>
+
+    <b-nav class="ml-auto">
+      <b-navbar-nav>
+        <b-nav-item to="/"><font-awesome-icon class="mr-2" :icon="['fas', 'home']" />Home</b-nav-item>
         <b-nav-item @click="logout"><font-awesome-icon class="mr-2" :icon="['fas', 'sign-out-alt']" />Logout</b-nav-item>
       </b-navbar-nav>
-    </b-collapse>
+    </b-nav>
   </b-navbar>
 </template>
 

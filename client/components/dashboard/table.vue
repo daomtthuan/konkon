@@ -1,5 +1,5 @@
 <template>
-  <b-container class="my-2" fluid>
+  <b-container class="my-2 " fluid>
     <b-row>
       <b-col lg="6" class="my-1">
         <b-form-group label="Sort:" label-cols-sm="3" label-align-sm="right" label-size="sm" label-for="sortBySelect" class="mb-0">
@@ -26,7 +26,7 @@
       <b-col lg="6" class="my-1">
         <b-form-group label="Filter:" label-cols-sm="3" label-align-sm="right" label-size="sm" label-for="filterInput" class="mb-0">
           <b-input-group size="sm">
-            <b-form-input v-model="filter" type="search" id="filterInput" placeholder="Type to Search"></b-form-input>
+            <b-form-input v-model="filter" type="search" id="filterInput" placeholder="Type to Search" />
             <b-input-group-append>
               <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
             </b-input-group-append>
@@ -67,57 +67,60 @@
       </b-col>
     </b-row>
 
-    <b-table
-      hover
-      show-empty
-      small
-      bordered
-      stacked="md"
-      class="my-3 shadow-sm"
-      :items="items"
-      :fields="fields"
-      :current-page="currentPage"
-      :per-page="perPage"
-      :filter="filter"
-      :filterIncludedFields="filterOn"
-      :sort-by.sync="sortBy"
-      :sort-desc.sync="sortDesc"
-      :sort-direction="sortDirection"
-      @filtered="onFiltered"
-    >
-      <template v-slot:cell(index)="row">
-        {{ row.index + 1 }}
-      </template>
+    <div>
+      <b-table
+        hover
+        show-empty
+        small
+        bordered
+        stacked="lg"
+        class="my-3 shadow-sm"
+        :items="$store.state.dashboard.table.items"
+        :fields="fields"
+        :current-page="currentPage"
+        :per-page="perPage"
+        :filter="filter"
+        :filterIncludedFields="filterOn"
+        :sort-by.sync="sortBy"
+        :sort-desc.sync="sortDesc"
+        :sort-direction="sortDirection"
+        @filtered="onFiltered"
+      >
+        <template v-slot:cell(index)="row">
+          {{ row.index + 1 }}
+        </template>
 
-      <template v-slot:cell(actions)="row">
-        <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="my-1">
-          <font-awesome-icon :icon="['fas', 'code']" />
-        </b-button>
-        <b-button size="sm" @click="row.toggleDetails" class="my-1">
-          <font-awesome-icon :icon="['fas', row.detailsShowing ? 'eye-slash' : 'eye']" />
-        </b-button>
-        <b-button size="sm" @click="edit(row.item, row.index, $event.target)" variant="primary" class="my-1 mr-3">
-          <font-awesome-icon :icon="['fas', 'edit']" />
-        </b-button>
-        <b-button size="sm" variant="danger" class="my-1">
-          <font-awesome-icon :icon="['fas', 'trash-alt']" />
-        </b-button>
-      </template>
+        <template v-slot:cell(actions)="row">
+          <b-button size="sm" @click="info(row.item, row.index, $event.target)">
+            <font-awesome-icon :icon="['fas', 'code']" />
+          </b-button>
+          <b-button size="sm" @click="row.toggleDetails">
+            <font-awesome-icon :icon="['fas', row.detailsShowing ? 'eye-slash' : 'eye']" />
+          </b-button>
+          <b-button size="sm" @click="edit(row.item, row.index, $event.target)" variant="primary" class="mr-3">
+            <font-awesome-icon :icon="['fas', 'edit']" />
+          </b-button>
+          <b-button size="sm" @click="remove(row.item)" variant="danger">
+            <font-awesome-icon :icon="['fas', 'trash-alt']" />
+          </b-button>
+        </template>
 
-      <template v-slot:row-details="row">
-        <b-card>
-          <ul class="m-0">
-            <div v-for="(value, key) in row.item" :key="key">
-              <li v-if="key.search('_') != 0">
-                <b>{{ key }}:</b> {{ value }}
-              </li>
-            </div>
-          </ul>
-        </b-card>
-      </template>
-    </b-table>
-
-    <b-modal :id="infoModal.id" :title="infoModal.title" @hide="resetInfoModal" ok-only>
+        <template v-slot:row-details="row">
+          <b-card>
+            <b-container class="mx-auto">
+              <ul class="m-0">
+                <div v-for="(value, key) in row.item" :key="key">
+                  <li v-if="key.search('_') != 0">
+                    <b>{{ key }}:</b> {{ value }}
+                  </li>
+                </div>
+              </ul>
+            </b-container>
+          </b-card>
+        </template>
+      </b-table>
+    </div>
+    <b-modal :id="infoModal.id" :title="infoModal.title" @hide="resetInfoModal" ok-only ok-title="Close" ok-variant="secondary" centered hide-header-close>
       <h6>Data JSON:</h6>
       <pre class="m-0">{{ infoModal.content }}</pre>
     </b-modal>
@@ -138,8 +141,7 @@
     @Prop(String)
     private readonly modal!: string;
 
-    private items = [];
-    private totalRows = 1;
+    private totalRows = this.$store.state.dashboard.table.items.length;
     private currentPage = 1;
     private perPage = 10;
     private pageOptions = [10, 50, 100];
@@ -153,11 +155,6 @@
       title: '',
       content: '',
     };
-
-    public async fetch() {
-      this.items = (await this.$axios.get(this.api)).data;
-      this.totalRows = this.items.length;
-    }
 
     public get options() {
       return this.fields.filter((field) => field.sortable).map((field) => ({ text: field.label, value: field.key }));
@@ -173,6 +170,24 @@
       this.$store.commit('dashboard/edit/setIndex', index);
       this.$store.commit('dashboard/edit/setItem', item);
       this.$root.$emit('bv::show::modal', `edit-${this.modal}`, button);
+    }
+
+    public async remove(item: any) {
+      if (
+        await this.$bvModal.msgBoxConfirm('Data will not be recoverable after deletion. Delete anyway?', {
+          title: 'Delete',
+          size: 'sm',
+          buttonSize: 'sm',
+          okVariant: 'danger',
+          okTitle: 'Yes',
+          cancelTitle: 'No',
+          footerClass: 'p-2',
+          hideHeaderClose: true,
+          centered: true,
+        })
+      ) {
+        this.$axios.delete(this.api, { params: { id: item.id } });
+      }
     }
 
     public resetInfoModal() {

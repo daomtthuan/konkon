@@ -1,5 +1,8 @@
 <template>
-  <b-sidebar id="dashboard-sidebar" class="border-right border-primary" shadow="lg" backdrop>
+  <b-sidebar id="dashboard-sidebar" title="Dashboard" text-variant="primary" bg-variant="light" backdrop shadow>
+    <template v-slot:header-close>
+      <font-awesome-icon :icon="['fas', 'times']" />
+    </template>
     <div class="p-4">
       <logo size="64" tag="h3" subtag="h5" />
       <hr class="bg-primary" />

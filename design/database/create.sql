@@ -103,6 +103,11 @@ create view view_user as (
   from table_user
 );
 
+create view view_scope as (
+	select *
+  from table_scope
+);
+
 -- ------------------------------
 
 delimiter //
@@ -135,6 +140,22 @@ create procedure getUserByAccount(_account varchar(100), _status int) begin
 	where
 		user_account = _account and
     case when _status = -1 then true else user_status = _status end;
+end //
+
+create procedure getScopeById(_id varchar(32), _status int) begin
+	select *
+  from table_scope
+	where
+		scope_id = _id and
+    case when _status = -1 then true else scope_status = _status end;
+end //
+
+create procedure getScopeByName(_name varchar(100), _status int) begin
+	select *
+  from table_scope
+	where
+		scope_name = _name and
+    case when _status = -1 then true else scope_status = _status end;
 end //
 
 create procedure getCategoryGroup(_status int) begin
@@ -219,6 +240,16 @@ create procedure addUserWithStatus(_account varchar(100), _password varchar(100)
   select _id as id;
 end //
 
+create procedure addScope(_name varchar(100), _status int) begin
+	declare _id varchar(32) default createId();
+  insert into table_scope values(
+		_id, -- id
+		_name, -- name
+		_status -- status
+  );
+  select _id as id;
+end //
+
 -- ------------------------------
 
 create procedure setUser(_id varchar(32), _email varchar(100), _name varchar(100), _gender bit, _birthday date, _phone varchar(15), _address varchar(200)) begin
@@ -244,6 +275,13 @@ create procedure setStatusUser(_id varchar(32), _status int) begin
 	where user_id = _id;
 end //
 
+create procedure setScope(_id varchar(32), _name varchar(100), _status int) begin
+	update table_scope set 
+		scope_name = _name,
+		scope_status = _status
+	where scope_id = _id;
+end //
+
 -- ------------------------------             
 
 create procedure deleteUser(_id varchar(32)) begin
@@ -255,6 +293,14 @@ create procedure deleteUser(_id varchar(32)) begin
   
 	delete from table_user
   where user_id = _id;
+end //
+
+create procedure deleteScope(_id varchar(32)) begin
+	delete from table_userScope
+  where userScope_scope = _id;
+  
+	delete from table_scope
+  where scope_id = _id;
 end //
 
 delimiter ;

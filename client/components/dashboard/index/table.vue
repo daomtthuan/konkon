@@ -68,62 +68,64 @@
     </b-row>
 
     <b-row class="my-3 d-flex align-items-center">
-      <b-col>
-        Status:
-        <div class="mx-1 d-inline-block bg-light border" style="height: 1rem; width: 1rem" />
-        Enable,
-        <div class="mx-1 d-inline-block bg-secondary border" style="height: 1rem; width: 1rem" />
-        Disable,
-        <div class="mx-1 d-inline-block bg-warning border" style="height: 1rem; width: 1rem" />
-        Not authenticated
-      </b-col>
-      <b-col class="text-right">
+      <b-col cols="12" md="2" class="text-center text-md-right" order="1" order-md="2">
         <b-button variant="primary" v-b-modal="`add-${this.modal}`"><font-awesome-icon :icon="['fas', 'plus']" class="mr-1" />Add</b-button>
       </b-col>
+      <b-col cols="12" md="10" class="mt-3 mt-md-0 text-center text-md-left" order="2" order-md="1">
+        <div class="mx-1 d-inline-block bg-white border border-dark" style="height: 1rem; width: 1rem" />
+        Enable,
+        <div class="mx-1 d-inline-block bg-secondary border border-dark" style="height: 1rem; width: 1rem" />
+        Disable,
+        <div class="mx-1 d-inline-block bg-warning border border-dark" style="height: 1rem; width: 1rem" />
+        Not authenticated
+      </b-col>
     </b-row>
-    <div class="my-3 shadow-sm border border-primary">
-      <b-table
-        hover
-        show-empty
-        small
-        bordered
-        responsive="xl"
-        :items="$store.getters['dashboard/table/getItems']"
-        :fields="fields"
-        :current-page="currentPage"
-        :per-page="perPage"
-        :filter="filter"
-        :filterIncludedFields="filterOn"
-        :sort-by.sync="sortBy"
-        :sort-desc.sync="sortDesc"
-        :sort-direction="sortDirection"
-        @filtered="onFiltered"
-      >
-        <template v-slot:cell(actions)="row">
-          <b-container fluid class="p-0">
-            <b-row no-gutters>
-              <b-col xl="4" lg="12" class="p-1">
-                <b-button size="sm" @click="info(row.item, row.index, $event.target)" block>
-                  <font-awesome-icon :icon="['fas', 'code']" />
+
+    <b-table
+      hover
+      show-empty
+      small
+      outlined
+      bordered
+      class="my-3 shadow-sm"
+      head-variant="light"
+      :stacked="stacked"
+      :items="$store.getters['dashboard/table/getItems']"
+      :fields="fields"
+      :current-page="currentPage"
+      :per-page="perPage"
+      :filter="filter"
+      :filterIncludedFields="filterOn"
+      :sort-by.sync="sortBy"
+      :sort-desc.sync="sortDesc"
+      :sort-direction="sortDirection"
+      @filtered="onFiltered"
+    >
+      <template v-slot:cell(actions)="row">
+        <b-container fluid class="p-0">
+          <b-row no-gutters>
+            <b-col>
+              <b-button size="sm" @click="info(row.item, row.index, $event.target)" block>
+                <font-awesome-icon :icon="['fas', 'code']" />
+              </b-button>
+            </b-col>
+            <b-col class="px-1">
+              <b-button size="sm" @click="edit(row.item, row.index, $event.target)" variant="primary" block>
+                <font-awesome-icon :icon="['fas', 'edit']" />
+              </b-button>
+            </b-col>
+            <b-col>
+              <b-overlay :show="busy" rounded opacity="0.7" spinner-small spinner-variant="primary">
+                <b-button size="sm" @click="remove(row.item, row.index)" variant="danger" :disabled="busy" block>
+                  <font-awesome-icon :icon="['fas', 'trash-alt']" />
                 </b-button>
-              </b-col>
-              <b-col xl="4" lg="6" md="12" class="p-1">
-                <b-button size="sm" @click="edit(row.item, row.index, $event.target)" variant="primary" block>
-                  <font-awesome-icon :icon="['fas', 'edit']" />
-                </b-button>
-              </b-col>
-              <b-col xl="4" lg="6" md="12" class="p-1">
-                <b-overlay :show="busy" rounded opacity="0.7" spinner-small spinner-variant="primary">
-                  <b-button size="sm" @click="remove(row.item, row.index)" variant="danger" :disabled="busy" block>
-                    <font-awesome-icon :icon="['fas', 'trash-alt']" />
-                  </b-button>
-                </b-overlay>
-              </b-col>
-            </b-row>
-          </b-container>
-        </template>
-      </b-table>
-    </div>
+              </b-overlay>
+            </b-col>
+          </b-row>
+        </b-container>
+      </template>
+    </b-table>
+
     <b-modal :id="infoModal.id" :title="infoModal.title" @hide="resetInfoModal" ok-only ok-title="Close" ok-variant="secondary" centered hide-header-close>
       <h6>Data JSON:</h6>
       <pre class="m-0">{{ infoModal.content }}</pre>
@@ -144,6 +146,9 @@
 
     @Prop(String)
     private readonly modal!: string;
+
+    @Prop(String)
+    private readonly stacked!: string;
 
     private busy = false;
     private totalRows = this.$store.getters['dashboard/table/getItems'].length;

@@ -222,18 +222,32 @@
 
     public async submit() {
       if (this.isValid) {
-        this.busySave = true;
-        try {
-          await this.$axios.put('/api/manage/user', this.user, { params: { mode: 'information' } });
-          this.$store.commit('dashboard/table/editItem', {
-            index: this.$store.state.dashboard.edit.index,
-            item: this.user,
-          });
-          this.$root.$emit('bv::hide::modal', 'edit-user');
-        } catch {
-          this.$bvToast.toast('Edit failed', { title: 'Error', variant: 'danger' });
+        if (
+          await this.$bvModal.msgBoxConfirm('Please confirm that you want to edit this user', {
+            title: 'Reset Password',
+            size: 'sm',
+            buttonSize: 'sm',
+            okVariant: 'danger',
+            okTitle: 'Yes',
+            cancelTitle: 'No',
+            footerClass: 'p-2',
+            hideHeaderClose: true,
+            centered: true,
+          })
+        ) {
+          this.busySave = true;
+          try {
+            await this.$axios.put('/api/manage/user', this.user, { params: { mode: 'information' } });
+            this.$store.commit('dashboard/table/editItem', {
+              index: this.$store.state.dashboard.edit.index,
+              item: this.user,
+            });
+            this.$root.$emit('bv::hide::modal', 'edit-user');
+          } catch {
+            this.$bvToast.toast('Edit failed', { title: 'Error', variant: 'danger' });
+          }
+          this.busySave = false;
         }
-        this.busySave = false;
       } else {
         this.$bvToast.toast('Invalid information', { title: 'Edit failed', variant: 'warning' });
       }

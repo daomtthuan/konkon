@@ -5,23 +5,6 @@ require_once __DIR__ . '/../../controllers/user.php';
 require_once __DIR__ . '/../../utils/api.php';
 
 new class extends Api {
-  // protected function _get(Request $request, Response $response) {
-  //   if ($request->hasScope('manager')) {
-  //     if ($request->isSetParam('sort', 'page', 'per_page')) {
-  //       $view = UserController::getInstance()->getView($request->getParam('sort'), $request->getParam('page'), $request->getParam('per_page'));
-  //       if (!is_null($view)) {
-  //         $response->sendJson(json_encode($view));
-  //       } else {
-  //         $response->status(400);
-  //       }
-  //     } else {
-  //       $response->status(400);
-  //     }
-  //   } else {
-  //     $response->status(401);
-  //   }
-  // }
-
   protected function _get(Request $request, Response $response) {
     if ($request->hasScope('manager')) {
       $response->sendJson(json_encode(UserController::getInstance()->getView()));
@@ -34,8 +17,7 @@ new class extends Api {
     if ($request->hasScope('manager')) {
       if ($request->isJsonData()) {
         if ($request->isSetData('account', 'email', 'name', 'gender', 'birthday', 'phone', 'address', 'status')) {
-          $user = UserController::getInstance()->getByAccount($request->getData('account'), -1);
-          if (is_null($user)) {
+          if (is_null(UserController::getInstance()->getByAccount($request->getData('account'), -1))) {
             $user = UserController::getInstance()->addWithStatus(
               $request->getData('account'),
               $request->getData('email'),

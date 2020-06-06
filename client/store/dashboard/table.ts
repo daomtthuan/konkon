@@ -22,7 +22,7 @@ export default class DashboardManageModule extends VuexModule {
 
   @Mutation
   public setItems(items: any[]) {
-    this.items = items;
+    this.items = items.slice();
   }
 
   @Mutation

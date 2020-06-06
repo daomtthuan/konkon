@@ -1,5 +1,5 @@
 <template>
-  <b-navbar class="shadow-lg border border-primary" variant="light">
+  <b-navbar class="shadow-lg border border-primary" variant="light" sticky>
     <b-button v-b-toggle.dashboard-sidebar variant="primary" class="mr-3">
       <font-awesome-icon :icon="['fas', 'bars']" />
     </b-button>

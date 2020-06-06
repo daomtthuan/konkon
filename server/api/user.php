@@ -8,8 +8,7 @@ new class extends Api {
   protected function _post(Request $request, Response $response) {
     if ($request->isJsonData()) {
       if ($request->isSetData('account', 'password', 'email', 'name', 'gender', 'birthday', 'phone', 'address')) {
-        $user = UserController::getInstance()->getByAccount($request->getData('account'), -1);
-        if (is_null($user)) {
+        if (is_null(UserController::getInstance()->getByAccount($request->getData('account'), -1))) {
           if (UserController::getInstance()->add(
             $request->getData('account'),
             $request->getData('password'),

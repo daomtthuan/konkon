@@ -8,9 +8,14 @@
       <hr class="bg-primary" />
       <div>
         <b-button block to="/dashboard">Home</b-button>
-        <b-button block v-b-toggle.collapse-manage>Manage</b-button>
-        <b-collapse id="collapse-manage" class="bg-white border mt-2">
+        <b-button block v-b-toggle.collapse-manage v-if="$auth.hasScope('manager')">Manage</b-button>
+        <b-collapse id="collapse-manage" class="bg-white border mt-2" v-if="$auth.hasScope('manager')">
           <b-link class="dropdown-item py-2" to="/dashboard/manage/user">User</b-link>
+          <b-link class="dropdown-item py-2" to="/dashboard/manage/scope">Scope</b-link>
+          <b-link class="dropdown-item py-2" to="/dashboard/manage/user-scope">User Scope</b-link>
+          <b-link class="dropdown-item py-2" to="/dashboard/manage/news">News</b-link>
+          <b-link class="dropdown-item py-2" to="/dashboard/manage/brand">Brand</b-link>
+          <b-link class="dropdown-item py-2" to="/dashboard/manage/product">Product</b-link>
         </b-collapse>
       </div>
     </div>

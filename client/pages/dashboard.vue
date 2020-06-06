@@ -1,12 +1,15 @@
 <template>
   <main>
     <dashboard-sidebar />
-    <div class="p-4">
+    <div class="vh-100">
       <dashboard-navbar />
-      <b-card no-body class="overflow-hidden shadow border border-primary mt-4">
-        <nuxt-child />
-      </b-card>
+      <div class="p-4">
+        <b-card no-body class="overflow-hidden shadow border border-primary">
+          <nuxt-child />
+        </b-card>
+      </div>
     </div>
+    <footbar />
   </main>
 </template>
 

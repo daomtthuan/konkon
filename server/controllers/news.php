@@ -47,6 +47,17 @@ class NewsController {
     return null;
   }
 
+  public function getById(string $id, int $status) {
+    $query = Provider::getInstance()->getBindQuery(News::class, ['id' => $id, 'status' => $status]);
+    if (!is_null($query)) {
+      $datas = Provider::getInstance()->executeQuery("call getNewsById(?, ?)", $query['type'], ...$query['vars']);
+      if (count($datas) == 1) {
+        return Provider::getInstance()->modelToArray(new News($datas[0]));
+      }
+    }
+    return null;
+  }
+
   public function getByName(string $name, int $status) {
     $query = Provider::getInstance()->getBindQuery(News::class, ['name' => $name, 'status' => $status]);
     if (!is_null($query)) {
@@ -79,7 +90,32 @@ class NewsController {
     return null;
   }
 
+  public function set(string $id, string $name, string $title, string $date, string $intro, string $content, int $status) {
+    $query = Provider::getInstance()->getBindQuery(News::class, [
+      'id'     => $id,
+      'name'   => $name,
+      'title'  => $title,
+      'date'   => $date,
+      'intro'  => $intro,
+      'status' => $status,
+    ]);
+    if (!is_null($query)) {
+      Provider::getInstance()->executeNonQuery('call setNews(?, ?, ?, ?, ?, ?)', $query['type'], ...$query['vars']);
+      if (Provider::getInstance()->writeFile($content, __DIR__ . "/../assets/news/contents/$name.html")) {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  }
+
   public function uploadImage(string $name) {
     return Provider::getInstance()->uploadFile(__DIR__ . "/../assets/news/images/$name.jpg");
+  }
+
+  public function rename(string $old, string $new) {
+    return
+    Provider::getInstance()->renameFile(__DIR__ . "/../assets/news/images/$old.jpg", __DIR__ . "/../assets/news/images/$new.jpg") &&
+    Provider::getInstance()->renameFile(__DIR__ . "/../assets/news/contents/$old.html", __DIR__ . "/../assets/news/contents/$new.html");
   }
 }

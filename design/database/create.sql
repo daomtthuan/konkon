@@ -200,6 +200,7 @@ create procedure getNewsByPage(_page int, _status int) begin
 		join table_user on user_id = news_auth
   where
     case when _status = -1 then true else news_status = _status end
+	order by news_date desc
 	limit _from, 10;
 end //
 
@@ -216,6 +217,22 @@ create procedure getNewsByName(_name varchar(100), _status int) begin
 		join table_user on user_id = news_auth
   where
 		news_name = _name and
+    case when _status = -1 then true else news_status = _status end;
+end //
+
+create procedure getNewsById(_id varchar(32), _status int) begin
+	select 
+		news_id,
+    news_name,
+    news_status,
+    news_title,
+    news_date,
+    news_intro,
+    user_name as news_auth
+  from table_news
+		join table_user on user_id = news_auth
+  where
+		news_id = _id and
     case when _status = -1 then true else news_status = _status end;
 end //
 
@@ -307,6 +324,16 @@ create procedure setScope(_id varchar(32), _name varchar(100), _status int) begi
 		scope_name = _name,
 		scope_status = _status
 	where scope_id = _id;
+end //
+
+create procedure setNews(_id varchar(32), _name varchar(100), _title varchar(100), _date date, _intro varchar(500), _status int) begin
+	update table_news set 
+		news_name = _name,
+		news_title = _title,
+    news_date = _date,
+    news_intro = _intro,
+    news_status = _status
+	where news_id = _id;	
 end //
 
 -- ------------------------------             

@@ -210,7 +210,7 @@
       if (this.isValid) {
         if (
           await this.$bvModal.msgBoxConfirm('Please confirm that you want to edit this user', {
-            title: 'Reset Password',
+            title: 'Edit user',
             size: 'sm',
             buttonSize: 'sm',
             okVariant: 'danger',

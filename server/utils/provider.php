@@ -150,4 +150,8 @@ class Provider {
   public function uploadFile(string $fileName) {
     return move_uploaded_file($_FILES['file']["tmp_name"], $fileName);
   }
+
+  public function renameFile(string $old, string $new) {
+    return rename($old, $new);
+  }
 }

@@ -74,10 +74,21 @@ new class extends Api {
   protected function _put(Request $request, Response $response) {
     if ($request->hasScope('manager')) {
       if ($request->isJsonData()) {
-        if ($request->isSetData('id', 'name', 'status')) {
-          $scope = ScopeController::getInstance()->getById($request->getData('id'), -1);
-          if (!is_null($scope)) {
-            if (ScopeController::getInstance()->set($scope['id'], $request->getData('name'), $request->getData('status'))) {
+        if ($request->isSetData('id', 'name', 'title', 'date', 'intro', 'content', 'status')) {
+          $news = NewsController::getInstance()->getById($request->getData('id'), -1);
+          if (!is_null($news)) {
+            if ($news['name'] != $request->getData('name')) {
+              NewsController::getInstance()->rename($news['name'], $request->getData('name'));
+            }
+            if (NewsController::getInstance()->set(
+              $news['id'],
+              $request->getData('name'),
+              $request->getData('title'),
+              $request->getData('date'),
+              $request->getData('intro'),
+              $request->getData('content'),
+              $request->getData('status')
+            )) {
               $response->status(200);
             } else {
               $response->status(400);

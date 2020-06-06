@@ -60,7 +60,7 @@ class ScopeController {
     return null;
   }
 
-  public function set(string $id, string $name, string $status) {
+  public function set(string $id, string $name, int $status) {
     $query = Provider::getInstance()->getBindQuery(Scope::class, [
       'id'     => $id,
       'name'   => $name,

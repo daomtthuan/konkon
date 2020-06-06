@@ -124,6 +124,18 @@
           </b-row>
         </b-container>
       </template>
+
+      <template v-slot:cell(url)="row" v-if="modal == 'news'">
+        <b-container fluid class="p-0">
+          <b-row no-gutters>
+            <b-col>
+              <b-button size="sm" :to="`/news/${row.item.name}`" target="_blank" block>
+                <font-awesome-icon :icon="['fas', 'link']" />
+              </b-button>
+            </b-col>
+          </b-row>
+        </b-container>
+      </template>
     </b-table>
 
     <b-modal :id="infoModal.id" :title="infoModal.title" @hide="resetInfoModal" ok-only ok-title="Close" ok-variant="secondary" centered hide-header-close>

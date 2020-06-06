@@ -108,6 +108,19 @@ create view view_scope as (
   from table_scope
 );
 
+create view view_news as (
+	select 
+		news_id,
+    news_name,
+    news_status,
+    news_title,
+    news_date,
+    news_intro,
+    user_name as news_auth
+  from table_news
+		join table_user on user_id = news_auth
+);
+
 -- ------------------------------
 
 delimiter //
@@ -247,6 +260,20 @@ create procedure addScope(_name varchar(100), _status int) begin
 		_name, -- name
 		_status -- status
   );
+  select _id as id;
+end //
+
+create procedure addNews(_name varchar(100), _title varchar(100), _date date, _intro varchar(500), _auth varchar(32), _status int) begin
+	declare _id varchar(32) default createId();
+	insert into table_news values(
+		_id, -- id
+		_name, -- name
+		_status, -- status
+		_title, -- title
+		_date, -- date
+		_intro, -- intro
+		_auth -- auth
+	);
   select _id as id;
 end //
 

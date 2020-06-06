@@ -12,30 +12,23 @@
         </b-input-group>
       </b-form-group>
       <b-form-group label="Email:" label-for="edit-user-input-email">
-        <b-form-input id="edit-user-input-email" v-model="user.email" autocomplete="email" :state="valid.email.state" />
+        <b-form-input id="edit-user-input-email" v-model="user.email" :state="valid.email.state" />
         <b-form-invalid-feedback :state="valid.email.state">{{ valid.email.feedback }}</b-form-invalid-feedback>
       </b-form-group>
       <b-form-group label="Fullname:" label-for="edit-user-input-name">
-        <b-form-input id="edit-user-input-name" v-model="user.name" autocomplete="name" :state="valid.name.state" />
+        <b-form-input id="edit-user-input-name" v-model="user.name" :state="valid.name.state" />
         <b-form-invalid-feedback :state="valid.name.state">{{ valid.name.feedback }}</b-form-invalid-feedback>
       </b-form-group>
       <b-form-group label="Gender:" label-for="edit-user-input-gender">
-        <b-form-radio-group
-          class="pt-2 py-1"
-          v-model="user.gender"
-          :options="genders"
-          name="edit-user-input-gender"
-          autocomplete="sex"
-          :state="valid.gender.state"
-        />
+        <b-form-radio-group class="pt-2 py-1" v-model="user.gender" :options="genders" name="edit-user-input-gender" :state="valid.gender.state" />
         <b-form-invalid-feedback :state="valid.gender.state">{{ valid.gender.feedback }}</b-form-invalid-feedback>
       </b-form-group>
       <b-form-group label="Birthday:" label-for="edit-user-input-birthday">
-        <b-form-input type="date" id="edit-user-input-birthday" v-model="user.birthday" autocomplete="bday" :state="valid.birthday.state" />
+        <b-form-input type="date" id="edit-user-input-birthday" v-model="user.birthday" :state="valid.birthday.state" />
         <b-form-invalid-feedback :state="valid.birthday.state">{{ valid.birthday.feedback }}</b-form-invalid-feedback>
       </b-form-group>
       <b-form-group label="Phone number:" label-for="edit-user-input-phone">
-        <b-form-input type="tel" id="edit-user-input-phone" v-model="user.phone" autocomplete="tel" :state="valid.phone.state" />
+        <b-form-input type="tel" id="edit-user-input-phone" v-model="user.phone" :state="valid.phone.state" />
         <b-form-invalid-feedback :state="valid.phone.state">{{ valid.phone.feedback }}</b-form-invalid-feedback>
       </b-form-group>
       <b-form-group label="Address:" label-for="edit-user-input-address">
@@ -43,14 +36,7 @@
         <b-form-invalid-feedback :state="valid.address.state">{{ valid.address.feedback }}</b-form-invalid-feedback>
       </b-form-group>
       <b-form-group label="Status:">
-        <b-form-radio-group
-          class="pt-2 py-1"
-          v-model="user.status"
-          :options="status"
-          name="edit-user-input-status"
-          autocomplete="sex"
-          :state="valid.status.state"
-        />
+        <b-form-radio-group class="pt-2 py-1" v-model="user.status" :options="status" name="edit-user-input-status" :state="valid.status.state" />
         <b-form-invalid-feedback :state="valid.status.state">{{ valid.status.feedback }}</b-form-invalid-feedback>
       </b-form-group>
     </b-form>

@@ -12,14 +12,7 @@
       <b-form-invalid-feedback :state="valid.name.state">{{ valid.name.feedback }}</b-form-invalid-feedback>
     </b-form-group>
     <b-form-group label="Gender:" label-for="form-account-information-input-gender">
-      <b-form-radio-group
-        class="pt-2 py-1"
-        v-model="user.gender"
-        :options="genders"
-        name="form-account-information-input-gender"
-        autocomplete="sex"
-        :state="valid.gender.state"
-      />
+      <b-form-radio-group class="pt-2 py-1" v-model="user.gender" :options="genders" name="form-account-information-input-gender" :state="valid.gender.state" />
       <b-form-invalid-feedback :state="valid.gender.state">{{ valid.gender.feedback }}</b-form-invalid-feedback>
     </b-form-group>
     <b-form-group label="Birthday:" label-for="form-account-information-input-birthday">

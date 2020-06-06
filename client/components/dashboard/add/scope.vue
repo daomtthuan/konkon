@@ -2,18 +2,11 @@
   <b-modal id="add-scope" @show="show" title="Add" ok-title="Close" ok-variant="secondary" ok-only centered hide-header-close>
     <b-form>
       <b-form-group label="Name:" label-for="add-scope-input-name">
-        <b-form-input id="add-scope-input-name" v-model="scope.name" autocomplete="name" :state="valid.name.state" />
+        <b-form-input id="add-scope-input-name" v-model="scope.name" :state="valid.name.state" />
         <b-form-invalid-feedback :state="valid.name.state">{{ valid.name.feedback }}</b-form-invalid-feedback>
       </b-form-group>
       <b-form-group label="Status:">
-        <b-form-radio-group
-          class="pt-2 py-1"
-          v-model="scope.status"
-          :options="status"
-          name="add-scope-input-status"
-          autocomplete="sex"
-          :state="valid.status.state"
-        />
+        <b-form-radio-group class="pt-2 py-1" v-model="scope.status" :options="status" name="add-scope-input-status" :state="valid.status.state" />
         <b-form-invalid-feedback :state="valid.status.state">{{ valid.status.feedback }}</b-form-invalid-feedback>
       </b-form-group>
     </b-form>
@@ -43,7 +36,7 @@
       { text: 'Disable', value: 0 },
     ];
     private valid: { [key: string]: { state: boolean | null; feedback: string } } = {
-      name: { state: false, feedback: 'Enter fullname' },
+      name: { state: false, feedback: 'Enter name' },
       status: { state: false, feedback: 'Select status' },
     };
     private busy = false;
@@ -54,10 +47,10 @@
         if (Plugins.isValid(process.env.regex_name!, process.env.regex_length_name!, this.scope.name)) {
           this.valid.name.state = true;
         } else {
-          this.valid.name = { state: false, feedback: 'Invalid fullname' };
+          this.valid.name = { state: false, feedback: 'Invalid name' };
         }
       } else {
-        this.valid.name = { state: false, feedback: 'Enter fullname' };
+        this.valid.name = { state: false, feedback: 'Enter name' };
       }
     }
 
@@ -107,10 +100,6 @@
         id: '',
         name: '',
         status: -1,
-      };
-      this.valid = {
-        name: { state: false, feedback: 'Enter fullname' },
-        status: { state: false, feedback: 'Select status' },
       };
     }
   }

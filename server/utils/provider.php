@@ -138,4 +138,16 @@ class Provider {
     }
     return $result;
   }
+
+  public function readFile(string $fileName) {
+    return file_get_contents($fileName);
+  }
+
+  public function writeFile(string $content, string $fileName) {
+    return file_put_contents($fileName, $content);
+  }
+
+  public function uploadFile(string $fileName) {
+    return move_uploaded_file($_FILES['file']["tmp_name"], $fileName);
+  }
 }

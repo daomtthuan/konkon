@@ -30,7 +30,7 @@ export default {
     height: '0.25rem',
   },
   css: ['~/assets/fonts', '~/assets/theme'],
-  plugins: [],
+  plugins: [{ src: './plugins/vue2-editor', ssr: false }],
   modules: ['@nuxt/components', '@nuxtjs/proxy', 'bootstrap-vue/nuxt', '@nuxtjs/axios', '@nuxtjs/dotenv', '@nuxtjs/auth', 'nuxt-fontawesome'],
   components: {
     dirs: [

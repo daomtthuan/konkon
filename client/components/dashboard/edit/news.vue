@@ -48,10 +48,10 @@
           if (Plugins.isValid(process.env.regex_name!, process.env.regex_length_name!, this.scope.name)) {
             this.valid.name.state = true;
           } else {
-            this.valid.name = { state: false, feedback: 'Invalid name' };
+            this.valid.name = { state: false, feedback: 'Invalid fullname' };
           }
         } else {
-          this.valid.name = { state: false, feedback: 'Enter name' };
+          this.valid.name = { state: false, feedback: 'Enter fullname' };
         }
       } else {
         this.valid.name.state = null;

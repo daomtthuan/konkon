@@ -3,35 +3,28 @@
     <b-form>
       <b-form-group label="Account:" label-for="add-user-input-account">
         <b-input-group>
-          <b-form-input id="add-user-input-account" v-model="user.account" autocomplete="username" :state="valid.account.state" />
+          <b-form-input id="add-user-input-account" v-model="user.account" :state="valid.account.state" />
           <b-form-invalid-feedback :state="valid.account.state">{{ valid.account.feedback }}</b-form-invalid-feedback>
         </b-input-group>
       </b-form-group>
       <b-form-group label="Email:" label-for="add-user-input-email">
-        <b-form-input id="add-user-input-email" v-model="user.email" autocomplete="email" :state="valid.email.state" />
+        <b-form-input id="add-user-input-email" v-model="user.email" :state="valid.email.state" />
         <b-form-invalid-feedback :state="valid.email.state">{{ valid.email.feedback }}</b-form-invalid-feedback>
       </b-form-group>
       <b-form-group label="Fullname:" label-for="add-user-input-name">
-        <b-form-input id="add-user-input-name" v-model="user.name" autocomplete="name" :state="valid.name.state" />
+        <b-form-input id="add-user-input-name" v-model="user.name" :state="valid.name.state" />
         <b-form-invalid-feedback :state="valid.name.state">{{ valid.name.feedback }}</b-form-invalid-feedback>
       </b-form-group>
       <b-form-group label="Gender:" label-for="add-user-input-gender">
-        <b-form-radio-group
-          class="pt-2 py-1"
-          v-model="user.gender"
-          :options="genders"
-          name="add-user-input-gender"
-          autocomplete="sex"
-          :state="valid.gender.state"
-        />
+        <b-form-radio-group class="pt-2 py-1" v-model="user.gender" :options="genders" name="add-user-input-gender" :state="valid.gender.state" />
         <b-form-invalid-feedback :state="valid.gender.state">{{ valid.gender.feedback }}</b-form-invalid-feedback>
       </b-form-group>
       <b-form-group label="Birthday:" label-for="add-user-input-birthday">
-        <b-form-input type="date" id="add-user-input-birthday" v-model="user.birthday" autocomplete="bday" :state="valid.birthday.state" />
+        <b-form-input type="date" id="add-user-input-birthday" v-model="user.birthday" :state="valid.birthday.state" />
         <b-form-invalid-feedback :state="valid.birthday.state">{{ valid.birthday.feedback }}</b-form-invalid-feedback>
       </b-form-group>
       <b-form-group label="Phone number:" label-for="add-user-input-phone">
-        <b-form-input type="tel" id="add-user-input-phone" v-model="user.phone" autocomplete="tel" :state="valid.phone.state" />
+        <b-form-input type="tel" id="add-user-input-phone" v-model="user.phone" :state="valid.phone.state" />
         <b-form-invalid-feedback :state="valid.phone.state">{{ valid.phone.feedback }}</b-form-invalid-feedback>
       </b-form-group>
       <b-form-group label="Address:" label-for="add-user-input-address">
@@ -39,14 +32,7 @@
         <b-form-invalid-feedback :state="valid.address.state">{{ valid.address.feedback }}</b-form-invalid-feedback>
       </b-form-group>
       <b-form-group label="Status:">
-        <b-form-radio-group
-          class="pt-2 py-1"
-          v-model="user.status"
-          :options="status"
-          name="add-user-input-status"
-          autocomplete="sex"
-          :state="valid.status.state"
-        />
+        <b-form-radio-group class="pt-2 py-1" v-model="user.status" :options="status" name="add-user-input-status" :state="valid.status.state" />
         <b-form-invalid-feedback :state="valid.status.state">{{ valid.status.feedback }}</b-form-invalid-feedback>
       </b-form-group>
     </b-form>
@@ -254,16 +240,6 @@
         phone: '',
         address: '',
         status: -1,
-      };
-      this.valid = {
-        account: { state: false, feedback: 'Enter account' },
-        email: { state: false, feedback: 'Enter email' },
-        name: { state: false, feedback: 'Enter fullname' },
-        gender: { state: false, feedback: 'Select gender' },
-        birthday: { state: false, feedback: 'Select birthday' },
-        phone: { state: false, feedback: 'Enter phone number' },
-        address: { state: false, feedback: 'Enter address' },
-        status: { state: false, feedback: 'Select status' },
       };
     }
   }

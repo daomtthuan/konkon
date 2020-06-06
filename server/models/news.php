@@ -13,8 +13,8 @@ class News {
     'name'   => [
       'name'   => 'news_name',
       'type'   => 's',
-      'regex'  => 'any',
-      'length' => 'title',
+      'regex'  => 'nameUrl',
+      'length' => 'nameUrl',
     ],
     'status' => [
       'name'   => 'news_status',

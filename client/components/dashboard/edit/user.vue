@@ -31,7 +31,7 @@
         <b-form-invalid-feedback :state="valid.gender.state">{{ valid.gender.feedback }}</b-form-invalid-feedback>
       </b-form-group>
       <b-form-group label="Birthday:" label-for="edit-user-input-birthday">
-        <b-form-input type="date" id="edit-user-input-birthday" v-model="user.birthday" autocomplete="bday" />
+        <b-form-input type="date" id="edit-user-input-birthday" v-model="user.birthday" autocomplete="bday" :state="valid.birthday.state" />
         <b-form-invalid-feedback :state="valid.birthday.state">{{ valid.birthday.feedback }}</b-form-invalid-feedback>
       </b-form-group>
       <b-form-group label="Phone number:" label-for="edit-user-input-phone">
@@ -229,13 +229,13 @@
             index: this.$store.state.dashboard.edit.index,
             item: this.user,
           });
-          this.$root.$emit('bv::hide::modal', `edit-user`);
+          this.$root.$emit('bv::hide::modal', 'edit-user');
         } catch {
-          this.$bvToast.toast('Change information failed', { title: 'Error', variant: 'danger' });
+          this.$bvToast.toast('Edit failed', { title: 'Error', variant: 'danger' });
         }
         this.busySave = false;
       } else {
-        this.$bvToast.toast('Invalid information', { title: 'Change information failed', variant: 'warning' });
+        this.$bvToast.toast('Invalid information', { title: 'Edit failed', variant: 'warning' });
       }
     }
 
@@ -255,7 +255,7 @@
       ) {
         this.busyReset = true;
         try {
-          this.$bvModal.msgBoxOk((await this.$axios.put('/api/manage/user', this.user, { params: { mode: 'password' } })).data.password, {
+          await this.$bvModal.msgBoxOk((await this.$axios.put('/api/manage/user', this.user, { params: { mode: 'password' } })).data.password, {
             title: 'New Password',
             size: 'sm',
             buttonSize: 'sm',

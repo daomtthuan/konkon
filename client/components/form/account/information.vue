@@ -23,7 +23,14 @@
       <b-form-invalid-feedback :state="valid.gender.state">{{ valid.gender.feedback }}</b-form-invalid-feedback>
     </b-form-group>
     <b-form-group label="Birthday:" label-for="form-account-information-input-birthday">
-      <b-form-input type="date" id="form-account-information-input-birthday" v-model="user.birthday" autocomplete="bday" :readonly="!isChange" />
+      <b-form-input
+        type="date"
+        id="form-account-information-input-birthday"
+        v-model="user.birthday"
+        autocomplete="bday"
+        :state="valid.birthday.state"
+        :readonly="!isChange"
+      />
       <b-form-invalid-feedback :state="valid.birthday.state">{{ valid.birthday.feedback }}</b-form-invalid-feedback>
     </b-form-group>
     <b-form-group label="Phone number:" label-for="form-account-information-input-phone">

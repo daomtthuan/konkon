@@ -12,6 +12,8 @@ export default class DashboardManageModule extends VuexModule {
         item._rowVariant = 'secondary';
       } else if (item.status == 2) {
         item._rowVariant = 'warning';
+      } else {
+        delete item._rowVariant;
       }
     }
 
@@ -26,6 +28,11 @@ export default class DashboardManageModule extends VuexModule {
   @Mutation
   public editItem(payload: { index: number; item: any }) {
     Object.assign(this.items[payload.index], payload.item);
+  }
+
+  @Mutation
+  public addItem(item: any) {
+    this.items.push(item);
   }
 
   @Mutation

@@ -2,6 +2,7 @@
   <div>
     <dashboard-table :fields="fields" api="/api/manage/user" modal="user" />
     <dashboard-edit-user />
+    <dashboard-add-user />
   </div>
 </template>
 
@@ -14,8 +15,8 @@
   })
   export default class PageDashboardManageUser extends Vue {
     private fields = [
-      { key: 'account', label: 'Account', sortable: true },
-      { key: 'name', label: 'Name', sortable: true },
+      { key: 'account', label: 'Account', sortable: true, class: 'align-middle' },
+      { key: 'name', label: 'Name', sortable: true, class: 'align-middle' },
       {
         key: 'gender',
         label: 'Gender',
@@ -24,11 +25,12 @@
         sortByFormatted: true,
         filterByFormatted: true,
         stickyColumn: true,
+        class: 'align-middle',
       },
-      { key: 'birthday', label: 'Birthday', sortable: true, class: 'text-lg-right' },
-      { key: 'phone', label: 'Phone', sortable: true, class: 'text-lg-right' },
-      { key: 'address', label: 'Address', sortable: true },
-      { key: 'actions', label: 'Actions', class: 'text-center' },
+      { key: 'birthday', label: 'Birthday', sortable: true, class: 'text-lg-right align-middle' },
+      { key: 'phone', label: 'Phone', sortable: true, class: 'text-lg-right align-middle' },
+      { key: 'address', label: 'Address', sortable: true, class: 'align-middle' },
+      { key: 'actions', label: 'Actions', class: 'text-center align-middle' },
     ];
 
     public async asyncData(context: Context) {

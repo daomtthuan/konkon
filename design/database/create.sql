@@ -202,6 +202,23 @@ create procedure addUser(_account varchar(100), _password varchar(100), _email v
   );
 end //
 
+create procedure addUserWithStatus(_account varchar(100), _password varchar(100), _email varchar(100), _name varchar(100), _gender bit, _birthday date, _phone varchar(15), _address varchar(200), _status int) begin
+	declare _id varchar(32) default createId();
+  insert into table_user values(
+		_id, -- id
+		_account, -- account
+		_password, -- password
+		_email, -- email
+		_status, -- status
+		_name, -- name
+		_gender, -- gender
+		_birthday, -- birthday
+		_phone, -- phone
+		_address -- address
+  );
+  select _id as id;
+end //
+
 -- ------------------------------
 
 create procedure setUser(_id varchar(32), _email varchar(100), _name varchar(100), _gender bit, _birthday date, _phone varchar(15), _address varchar(200)) begin

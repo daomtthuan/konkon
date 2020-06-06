@@ -39,6 +39,7 @@ export default {
       { path: '~/components/form/account', prefix: 'form-account' },
       { path: '~/components/dashboard', prefix: 'dashboard' },
       { path: '~/components/dashboard/edit', prefix: 'dashboard-edit' },
+      { path: '~/components/dashboard/add', prefix: 'dashboard-add' },
     ],
   },
   proxy: {

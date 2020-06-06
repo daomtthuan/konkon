@@ -67,14 +67,27 @@
       </b-col>
     </b-row>
 
-    <div>
+    <b-row class="my-3 d-flex align-items-center">
+      <b-col>
+        Status:
+        <div class="mx-1 d-inline-block bg-light border" style="height: 1rem; width: 1rem" />
+        Enable,
+        <div class="mx-1 d-inline-block bg-secondary border" style="height: 1rem; width: 1rem" />
+        Disable,
+        <div class="mx-1 d-inline-block bg-warning border" style="height: 1rem; width: 1rem" />
+        Not authenticated
+      </b-col>
+      <b-col class="text-right">
+        <b-button variant="primary" v-b-modal="`add-${this.modal}`"><font-awesome-icon :icon="['fas', 'plus']" class="mr-1" />Add</b-button>
+      </b-col>
+    </b-row>
+    <div class="my-3 shadow-sm border border-primary">
       <b-table
         hover
         show-empty
         small
         bordered
         responsive="xl"
-        class="my-3 shadow-sm"
         :items="$store.getters['dashboard/table/getItems']"
         :fields="fields"
         :current-page="currentPage"
@@ -108,20 +121,6 @@
               </b-col>
             </b-row>
           </b-container>
-        </template>
-
-        <template v-slot:row-details="row">
-          <b-card>
-            <b-container class="mx-auto">
-              <ul class="m-0">
-                <div v-for="(value, key) in row.item" :key="key">
-                  <li v-if="key.search('_') != 0">
-                    <b>{{ key }}:</b> {{ value }}
-                  </li>
-                </div>
-              </ul>
-            </b-container>
-          </b-card>
         </template>
       </b-table>
     </div>

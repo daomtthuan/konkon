@@ -101,6 +101,37 @@ class UserController {
     }
   }
 
+  public function addWithStatus(string $account, string $email, string $name, string $gender, string $birthday, string $phone, string $address, int $status) {
+    $characters   = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $randomString = '';
+    for ($i = 0; $i < 15; $i++) {
+      $index = rand(0, strlen($characters) - 1);
+      $randomString .= $characters[$index];
+    }
+
+    $query = Provider::getInstance()->getBindQuery(User::class, [
+      'account'  => $account,
+      'password' => password_hash($randomString, PASSWORD_BCRYPT),
+      'email'    => $email,
+      'name'     => $name,
+      'gender'   => $gender,
+      'birthday' => $birthday,
+      'phone'    => $phone,
+      'address'  => $address,
+      'status'   => $status,
+    ]);
+    if (!is_null($query)) {
+      $datas = Provider::getInstance()->executeQuery('call addUserWithStatus(?, ?, ?, ?, ?, ?, ?, ?, ?)', $query['type'], ...$query['vars']);
+      if (count($datas) == 1) {
+        return [
+          'id'       => $datas[0]['id'],
+          'password' => $randomString,
+        ];
+      }
+    }
+    return null;
+  }
+
   public function set(string $id, string $email, string $name, string $gender, string $birthday, string $phone, string $address) {
     $query = Provider::getInstance()->getBindQuery(User::class, [
       'id'       => $id,

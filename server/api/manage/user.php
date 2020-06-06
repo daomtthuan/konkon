@@ -30,6 +30,41 @@ new class extends Api {
     }
   }
 
+  protected function _post(Request $request, Response $response) {
+    if ($request->hasScope('manager')) {
+      if ($request->isJsonData()) {
+        if ($request->isSetData('account', 'email', 'name', 'gender', 'birthday', 'phone', 'address', 'status')) {
+          $user = UserController::getInstance()->getByAccount($request->getData('account'), -1);
+          if (is_null($user)) {
+            $user = UserController::getInstance()->addWithStatus(
+              $request->getData('account'),
+              $request->getData('email'),
+              $request->getData('name'),
+              $request->getData('gender'),
+              $request->getData('birthday'),
+              $request->getData('phone'),
+              $request->getData('address'),
+              $request->getData('status')
+            );
+            if (!is_null($user)) {
+              $response->sendJson(json_encode($user));
+            } else {
+              $response->status(400);
+            }
+          } else {
+            $response->status(406);
+          }
+        } else {
+          $response->status(400);
+        }
+      } else {
+        $response->status(415);
+      }
+    } else {
+      $response->status(401);
+    }
+  }
+
   protected function _put(Request $request, Response $response) {
     if ($request->hasScope('manager')) {
       if ($request->isJsonData()) {
